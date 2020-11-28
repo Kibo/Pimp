@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.js"],"names":["$","console","log"],"mappings":";;AAAAA,CAAC,CAAC,YAAW;AACTC,EAAAA,OAAO,CAACC,GAAR,CAAa,QAAb;AACH,CAFA,CAAD","sourcesContent":["$(function() {\n    console.log( \"ready!\" );\n});"],"file":"app.babel.js"}

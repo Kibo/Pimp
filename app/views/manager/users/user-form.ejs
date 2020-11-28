@@ -1,0 +1,56 @@
+<% layout('layouts/manager') -%>
+
+<% include ../../includes/messages %>
+
+<form method="post" action="/manager/users/save">
+	<fieldset>
+		<legend>
+			Uživatel
+		</legend>
+
+		<div class="form-group">
+			<label>Jméno</label>
+			<input type="text" class="form-control" name="firstname" value="<%=user.firstname || ''%>" placeholder="Jméno" maxlength="254" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label>Příjmení</label>
+			<input type="text" class="form-control" name="lastname" value="<%=user.lastname|| ''%>" placeholder="Příjmení" maxlength="254" autocomplete="off">
+		</div>
+
+		<div class="form-group">
+			<label>E-mail</label>
+			<input type="email" class="form-control" name="email" value="<%=user.email|| ''%>" placeholder="E-mail" maxlength="254" autocomplete="off">
+		</div>
+
+		<div class="form-group form-check">
+			<label class="form-check-label">
+				<input type="checkbox" class="form-check-input" name="isActive" <%=user.isActive ? 'checked' : ''%> >
+				je aktivní</label>
+		</div>
+		
+		<div class="form-group form-check">
+			<label class="form-check-label">
+				<input type="checkbox" class="form-check-input" name="isNotofication" <%=user.isNotofication ? 'checked' : ''%> >
+				dostávat upozornění na akce webu</label>
+		</div>
+
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			Role
+		</legend>
+		<div class="form-group">
+			<label>Role na tomto webu</label>
+			<input type="text" class="form-control" name="roles" value="<%=user.roles.join(",")%>" maxlength="254" autocomplete="off">
+			<small class="form-text text-muted">Čárkou oddělené role.</small>
+		</div>
+	</fieldset>
+
+	<input type="hidden" name="id" value="<%=user.id ? user.id : '' %>" />
+	<input class="btn btn-success" type="submit" value="Uložit" >
+
+</form>
+
+<script>document.querySelector(".link-users").classList.add("active");</script>

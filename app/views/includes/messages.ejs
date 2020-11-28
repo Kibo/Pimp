@@ -1,0 +1,43 @@
+<% if( typeof info != 'undefined' && info.length ){%>
+	<div class="alert alert-info">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>		
+		<ul class="m-0">			
+			<% for ( var i = 0, ln = info.length; i < ln; i++ ) { %>
+				<li><%=info[i]%></li>
+			<%}%>			
+		</ul>		
+	</div>	
+<%}%>
+
+<% if( typeof errors != 'undefined' && errors.length ){%>
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<ul class="m-0">
+			<% for ( var i = 0, ln = errors.length; i < ln; i++ ) { %>
+				<li><%=errors[i]%></li>
+			<%}%>			
+		</ul>		
+	</div>	
+<%}%>        
+        
+<% if( typeof success != 'undefined' && success.length ){%>
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<ul class="m-0">			
+			<% for ( var i = 0, ln = success.length; i < ln; i++ ) { %>
+				<li><%=success[i]%></li>
+			<%}%>			
+		</ul>		
+	</div>	
+<%}%>
+
+<% if( typeof warning != 'undefined' && warning.length ){%>
+	<div class="alert alert-warning">		
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>		
+		<ul class="m-0">			
+			<% for ( var i = 0, ln = warning.length; i < ln; i++ ) {%>	
+				<li><%=warning[i]%></li>
+			<%}%>			
+		</ul>		
+	</div>	
+<%}%>

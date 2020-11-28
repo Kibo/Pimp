@@ -1,0 +1,26 @@
+<% if( messages.errors ){ %>
+	<div id="#flash-message" class="alert alert-danger animated fadeIn">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<% for( var i = 0, ln = messages.errors.length; i < ln; i++ ){ %>
+			<div><%=messages.errors[i].msg%></div>
+		<%}%>				
+	</div>
+<%}%>        
+
+<% if( messages.info ){ %>
+	<div id="#flash-message" class="alert alert-info animated fadeIn">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<% for( var i = 0, ln = messages.info.length; i < ln; i++ ){ %>
+			<div><%=messages.info[i].msg%></div>
+		<%}%>				
+	</div>
+<%}%>
+
+<% if( messages.success ){ %>
+	<div id="#flash-message" class="alert alert-success animated fadeIn">
+		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<% for( var i = 0, ln = messages.success.length; i < ln; i++ ){ %>
+			<div><%=messages.success[i].msg%></div>
+		<%}%>				
+	</div>
+<%}%>

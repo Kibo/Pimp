@@ -1,0 +1,15 @@
+<% if (NODE_ENV == 'development') {%>
+	<link rel="stylesheet" href="/vendor/bootstrap/bootstrap-4.5.0-dist/css/bootstrap.css" type="text/css">
+	<link rel="stylesheet" href="/vendor/font-awesome/v4_7_0/css/font-awesome.css">
+	<link rel="stylesheet" href="/vendor/Magnific-Popup/dist/magnific-popup.css">	
+    <link rel="stylesheet" href="/css/app.css" type="text/css">
+<%}%>
+
+<% if (NODE_ENV == 'production') {%>
+    <link rel="stylesheet" href="/css/all.min.css?rel=1603701851292" type="text/css">
+<%}%>
+						
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include ../includes/head %>		
+	</head>
+	<body id="page-login">						
+
+		<div class="container">
+		  		<div class="row">
+		  			<div class="col-12 col-md-4 offset-md-4">  				  				  		
+		  				 <div class="card mt-5">
+		  				 	<div class="card-header">		                        
+		                        <h5 class="card-title m-0">Přihlášení místním účtem</h5>	                        
+		                    </div> 
+		  				 	
+		  				 	<div class="card-body pb-0">
+		  				 				  				 					  							  			
+				  				<form action="/users/session" method="post" role="form">
+				  									  					
+				  					<% include ../includes/messages %>
+				  					<% include ../includes/flash %>
+				  									  									  									
+									<div class="form-group">
+								        <div class="input-group">
+								        	<div class="input-group-prepend">
+          										<div class="input-group-text"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+        									</div>								        						               								                       
+								             <input class="form-control" type="email" name="email" value="<%=email%>" maxlength="50" />
+								         </div>
+								     </div>	
+								     
+								     <div class="form-group">
+								        <div class="input-group">	
+								        	<div class="input-group-prepend">
+          										<div class="input-group-text"> <i class="fa fa-lock" aria-hidden="true"></i></div>
+        									</div>								        						               								                       								             								        									        					               								                   
+								             <input class="form-control" type="password" name="password" value="" maxlength="50" />             
+								         </div>
+								     </div>
+													
+									<input class="btn btn-success btn-block" type="submit" value="Login">							
+									
+									<hr>
+																					
+									<div class="form-group">
+										<a href="/forget-password">Zapomenuté heslo</a><br>
+										Ještě nemáte účet? <a href="/signup">Nová registrace</a>
+									</div> <!-- form-group -->
+																																																							
+								</form>
+								
+							</div> <!-- card-body -->
+						</div> <!-- card -->  	
+						
+						
+						<div class="card mt-4">
+		  				 	<div class="card-header">		                        
+		                        <h5 class="card-title m-0">Další možnosti přihlášení</h5>	                        
+		                    </div> 
+		  				 	
+		  				 	<div class="card-body pb-0">																	
+								<a href="/login/google" class="btn btn-light btn-block"><i class="fa fa-google" aria-hidden="true"></i> Google účet</a><br>																		
+							</div> <!-- card-body -->
+						</div> <!-- card -->  	
+									
+		  			</div> <!-- col -->
+		  		</div> <!-- row -->
+		</div> <!-- container -->
+
+		<% include ../includes/footer %>			
+	</body>
+</html>

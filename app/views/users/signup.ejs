@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<% include ../includes/head %>
+	</head>
+	<body id="page-signup">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-6 offset-md-3">
+
+					<div class="card mt-5">
+						<div class="card-header">
+							<h5 class="card-title m-0">Signup</h5>
+						</div>
+
+						<div class="card-body">
+
+							<% include ../includes/messages %>
+
+							<form action="/users/create" method="post" role="form">
+
+								<div class="form-group">
+									<label>Firstname</label>
+									<input type="text" class="form-control" name="firstname" value="<%=user.firstname ? user.firstname : ''%>" placeholder="Firstname">
+								</div>
+
+								<div class="form-group">
+									<label>Lastname</label>
+									<input type="text" class="form-control" name="lastname" value="<%=user.lastname ? user.lastname : ''%>" placeholder="Lastname">
+								</div>
+
+								<div class="form-group">
+									<label>E-mail</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												@
+											</div>
+										</div>
+										<input type="email" class="form-control" name="email" value="<%=user.email? user.email : ''%>" placeholder="Email">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label>Password</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fa fa-lock" aria-hidden="true"></i>
+											</div>
+										</div>
+										<input type="text" class="form-control" name="password" placeholder="Password" >
+									</div>
+								</div>
+
+								<input class="btn btn-success btn-block" type="submit" value="Sign up">
+																
+								<hr>
+																					
+								<div class="form-group">
+									<a href="/forget-password">Forgot Password</a><br>
+									Do you have an account? <a href="/login">Login</a>
+								</div> <!-- form-group -->	
+																
+							</form>
+						</div>
+						<!-- body -->
+					</div>
+					<!-- card -->
+
+				</div>
+				<!-- col -->
+			</div>
+			<!-- row -->
+		</div>
+		<!-- container -->
+
+		<% include ../includes/footer %>
+	</body>
+</html>

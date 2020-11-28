@@ -1,0 +1,38 @@
+<% layout('layouts/manager') -%>
+
+<% include ../../includes/flash %>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Datum</th>
+			<th>Status</th>
+			<th>Uživatel</th>
+			<th>Zpráva</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var i = 0, l = logs.length; i < l; i++){ %>
+		<tr>
+			<td><%=moment( logs[i].created ).format('DD. MM. YYYY, h:mm')%></td>
+			<td> <%if(logs[i].status === 401){%> <span class="badge badge-warning"><%=logs[i].status%></span> <%}else if( logs[i].status === 200 ){%> <span class="badge badge-success"><%=logs[i].status%></span> <%}else{%>
+			<%=logs[i].status%>
+			<%}%> </td>
+			<td><%=logs[i].user%></td>
+			<td><%-logs[i].message%></td>
+			<td class="text-right">
+			<div class="btn-group" role="group">
+				<a href="/manager/logs/delete/<%=logs[i].id%>" class="btn btn-danger btn-sm" onclick="return confirm('Smazat řádek ?')">smazat</a>
+			</div></td>
+		</tr>
+		<% } %>
+		<%if(logs.length === 0){%>
+		<tr>
+			<td colspan="5" class="text-center">Logování je <%=config.log.isLog?'zapnuto':'vypnuto'%>.</td>
+		</tr>
+		<%}%>
+	</tbody>
+</table>
+
+<script>document.querySelector(".link-logs").classList.add("active");</script>
