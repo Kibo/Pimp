@@ -1,10 +1,10 @@
 # Pimp
 <img align="right" src="https://raw.githubusercontent.com/Kibo/Pimp/master/public/img/pimp_logo_200.png">
 
-Lightweight authentication server based on JSON Web Token.
+Lightweight authentication server based on [JSON Web Token](https://jwt.io/introduction/).
 
 - Express 4
-- MongoDB/Mongoose
+- MongoDB
 - Passport
 - TODO LOGGER
 - Google ReCaptcha v3
@@ -18,8 +18,8 @@ Lightweight authentication server based on JSON Web Token.
 
 ## Install
 ```
-  $ git clone git@THIS-REPO-TODO.git
-  $ cd JWT
+  $ git clone https://github.com/Kibo/Pimp.git
+  $ cd Pimp
   $ npm install 
   $ grunt
 ```
