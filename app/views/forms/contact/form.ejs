@@ -1,0 +1,34 @@
+<fieldset>
+	<legend>
+		Kontaktn&iacute; osoba
+	</legend>
+
+	<div class="form-group">
+		<label>Jm&eacute;no </label>
+		<input class="form-control" maxlength="100" name="firstname" size="50" type="text" value="<%=form.firstname%>" />
+	</div>
+
+	<div class="form-group">
+		<label>Př&iacute;jmen&iacute;</label>
+		<input class="form-control" maxlength="100" name="lastname" size="50" type="text" value="<%=form.lastname%>" />
+	</div>
+
+	<div class="form-group">
+		<label>E-mail <span>*</span></label>
+		<input class="form-control" maxlength="100" name="email" size="20" type="text" value="<%=form.email%>" required />
+		<span class="help-block">Na tomto e-mailu V&aacute;s budeme kontaktovat.</span>
+	</div>
+
+</fieldset>
+
+<fieldset>
+	<legend>
+		Dotaz
+	</legend>
+
+	<div class="form-group">
+		<textarea class="form-control" name="note" rows="5"><%=form.note%></textarea>
+	</div>
+</fieldset>
+
+<input type="hidden" name="name" value="contact" />

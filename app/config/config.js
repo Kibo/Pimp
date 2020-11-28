@@ -5,7 +5,10 @@ var rootPath = path.normalize(__dirname + '/../..');
 var config = {
 	
 	development: {
-		root: rootPath,				
+		root: rootPath,		
+		pages: {
+			index:'/pages/index'
+		},				
 		server: {
       		port: 3000,
       		hostname: 'localhost',

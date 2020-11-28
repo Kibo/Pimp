@@ -1,0 +1,47 @@
+<% layout('layouts/manager') -%>
+
+<% include ../../includes/flash %>
+	
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Datum</th>
+			<th>Jméno</th>												
+			<th>E-mail</th>							
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var i = 0, l = forms.length; i < l; i++){ %>
+		<tr>
+			<td><%=moment( forms[i].created ).format('DD. MM. YYYY, h:mm')%></td>																			
+			<td><%=forms[i].firstname%> <%=forms[i].lastname%></td>													
+			<td><%=forms[i].email%></td>													
+			<td class="text-right">
+				<div class="btn-group" role="group">
+					<a href="/manager/forms/edit/<%=forms[i].id%>" class="btn btn-success btn-sm">editovat</a>
+					<a href="/manager/forms/delete/<%=forms[i].id%>" class="btn btn-danger btn-sm" onclick="return confirm('Smazat rezervaci: <%=forms[i].email%> ?')">smazat</a>								
+				</div>
+		 	</td>											
+		</tr>
+		<% } %>	
+		
+		<%if(forms.length == 0){%>
+			<tr>
+				<td colspan="5">
+					<i class="fa fa-linux" aria-hidden="true"></i> Tady nic není.
+				</td>
+			</tr>							
+		<%}%>										
+	</tbody>
+</table>			
+
+<%if(forms.length !== 0){%>
+	<div class="alert alert-secondary">
+		<a class="btn btn-danger btn-sm" href="/manager/forms/delete/all/contact" onclick="return confirm('Smazat všechny záznamy?')">Smazat vše</a>	
+	</div>
+<%}%>				
+
+<script>	
+	document.querySelector(".link-forms").classList.add("active");
+</script>

@@ -7,7 +7,9 @@ var passport = require('passport');
 var Auth = require(config.root + '/app/middleware/authorization');
 var Recaptcha = require(config.root + '/app/middleware/recaptcha');
 
+var pageController = require(config.root + '/app/controllers/pages');
 var userController = require(config.root + '/app/controllers/users');
+
 var managerUserController = require(config.root + '/app/controllers/manager/users');
 var managerLogController = require(config.root + '/app/controllers/manager/logs');
  
@@ -16,8 +18,11 @@ var managerLogController = require(config.root + '/app/controllers/manager/logs'
 Route	
 	// Web Index page
 	.get('/', function(req, res){
-		res.redirect("/login");
+		res.redirect(config.pages.index);
 	 })
+	 
+	 // Common
+	.get('/pages/index', pageController.index)
   
 	.get('/login', userController.login)	
 	.get('/logout', userController.logout)

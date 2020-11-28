@@ -1,0 +1,16 @@
+<script src="https://www.google.com/recaptcha/api.js?render=<%=config.Recaptcha.SITE_KEY%>"></script>
+<div id="form-contact">
+	<% include ../includes/flash %>
+	<% include ../includes/messages %>	
+	
+	<div class="alert alert-secondary">
+		<form id="recaptcha-form-contact" action="/form/save" method="post">												
+			<%- include('../forms/contact/form') %>						
+			<input type="hidden" name="page" value="<%=page.url%>" />
+			
+			<button type="button" class="btn btn-success" onclick="submitRecapchaForm('recaptcha-form-contact', '<%=config.Recaptcha.SITE_KEY%>', 'contact')">
+				Odeslat
+			</button>				
+		</form>																					
+	</div>
+</div>
