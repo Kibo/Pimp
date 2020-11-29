@@ -6,9 +6,7 @@ var Form = require(config.root + '/app/models/form');
  * Index page 
  */
 exports.index = function (req, res, next) {	
-		return res.render('pages/index', {
-        	config:config,
-        	form: new Form(),
+		return res.render('pages/index', {        	        
         	page:{url:"index"}
       	})													
 };
