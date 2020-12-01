@@ -15,7 +15,6 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
 - [NPM](https://npmjs.org) - Node.js package manager.
 - [Grunt](http://gruntjs.com/) - The JavaScript Task Runner.
 
-
 ## Install
 ```
   $ git clone https://github.com/Kibo/Pimp.git
@@ -23,7 +22,7 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
   $ npm install 
   $ grunt
 ```
-## API
-- POST /signup
-- POST /login
+## Endpoints
+- POST /api/v1/signup
+- POST /api/v1/login
 - TODO

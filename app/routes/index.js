@@ -1,18 +1,16 @@
-var express = require('express');
-var Route = express.Router();
-var config = require('../config/config');
-var fs = require('fs');
-var passport = require('passport');
+const express = require('express');
+const Route = express.Router();
+const config = require('../config/config');
+const passport = require('passport');
 
-var Auth = require(config.root + '/app/middleware/authorization');
-var Recaptcha = require(config.root + '/app/middleware/recaptcha');
+const managerUsersRoutes = require('./manager-users');
+const managerLogsRoutes = require('./manager-logs');
 
-var pageController = require(config.root + '/app/controllers/pages');
-var userController = require(config.root + '/app/controllers/users');
+const Auth = require(config.root + '/app/middleware/authorization');
+const Recaptcha = require(config.root + '/app/middleware/recaptcha');
 
-var managerUserController = require(config.root + '/app/controllers/manager/users');
-var managerLogController = require(config.root + '/app/controllers/manager/logs');
- 
+const pageController = require(config.root + '/app/controllers/pages');
+const userController = require(config.root + '/app/controllers/users');
 
 // Frontend routesuploads
 Route	
@@ -46,21 +44,10 @@ Route
 	.get('/manager', Auth.requiresLogin, Auth.needsRole(['admin']), function(req, res){
 		res.redirect('/manager/users/all')
 	})
-	
-	// Manager Users			
-	.get('/manager/users/all', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.all)	
-	.get('/manager/users/create', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.create)	
-	.get('/manager/users/edit/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.edit)
-	.post('/manager/users/save', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.save)
-	.get('/manager/users/password/edit/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.password)
-	.post('/manager/users/password/save', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.passwordSave)	
-	.get('/manager/users/delete/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.delete)
-   	
-	// Manager Logs
-	.get('/manager/logs/all', Auth.requiresLogin, Auth.needsRole(['admin']), managerLogController.all)
-  	.get('/manager/logs/delete/all', Auth.requiresLogin, Auth.needsRole(['admin']), managerLogController.deleteAll)
-  	.get('/manager/logs/delete/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerLogController.delete)
-		 
+		
+	.use('/manager/users', managerUsersRoutes)
+	.use('/manager/logs', managerLogsRoutes)
+		
 	.get('/401', function(req, res){ 
   		res.status(401); 
   		res.render('401');
