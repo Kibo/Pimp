@@ -4,6 +4,7 @@ const config = require('../config/config');
 const passport = require('passport');
 
 const managerUsersRoutes = require('./manager-users');
+const managerSettingsRoutes = require('./manager-settings');
 const managerLogsRoutes = require('./manager-logs');
 
 const Auth = require(config.root + '/app/middleware/authorization');
@@ -44,8 +45,9 @@ Route
 	.get('/manager', Auth.requiresLogin, Auth.needsRole(['admin']), function(req, res){
 		res.redirect('/manager/users/all')
 	})
-		
+			
 	.use('/manager/users', managerUsersRoutes)
+	.use('/manager/setting', managerSettingsRoutes)
 	.use('/manager/logs', managerLogsRoutes)
 		
 	.get('/401', function(req, res){ 
