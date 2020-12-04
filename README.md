@@ -22,6 +22,11 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
   $ npm install 
   $ grunt
 ```
+### Local login
+- localhost:3000/login
+- admin@admin.com
+- 1234
+
 ## Endpoints
 ### POST /api/v1/login
 ```
@@ -74,11 +79,11 @@ RESPONSE:{
 ### Token
 ```
 {
-    header:{
-        "alg": "HS256",
-        "typ": "JWT"
-    },
-    payload:{
+	header:{
+		"alg": "HS256",
+		"typ": "JWT"
+	},
+	payload:{
 		iat:"token creation time",
 		iss:"domain name",
 		exp:"time until is valid",
@@ -97,6 +102,8 @@ RESPONSE:{
 ```
 
 ### TODO
-- Add Captcha to login, reset, signup forms
+- Logger
+- Google ReCaptcha v3 to login, reset, signup forms
 - Create a temporary password if password reset.
+- I18n
 
