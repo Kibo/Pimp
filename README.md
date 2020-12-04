@@ -56,7 +56,7 @@ REQUEST:{
 
 	},
 	Body:{
-	 	token:"1234.5678.9101112" 
+		token:"1234.5678.9101112" 
 	}
 }
 
@@ -79,17 +79,17 @@ RESPONSE:{
         "typ": "JWT"
     },
     payload:{
-        iat:"token creation time",
+		iat:"token creation time",
 		iss:"domain name",
 		exp:"time until is valid",
 		data:{
-		    userId: "12345",
-		    firstname:"John",
-		    lastname:"Deen"
-		    email:"deen@email.com",
-		    roles:["role1", "role2"],
-		    isActive:Boolean,
-		    isNotification:Boolean
+			userId: "12345",
+			firstname:"John",
+			lastname:"Deen"
+			email:"deen@email.com",
+			roles:["role1", "role2"],
+			isActive:Boolean,
+			isNotification:Boolean
 		}
     },
     sign:"hash-123456"
