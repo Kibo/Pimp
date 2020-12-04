@@ -36,8 +36,8 @@ REQUEST:{
 		Accept:application/json
 	},
 	Body:{
-	 	"username": "john",
-    	"password": "hashed_password"
+		"email": "deen@email.com",
+		"password": "hashed_password"
 	}
 }
 
