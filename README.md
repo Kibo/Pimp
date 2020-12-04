@@ -3,6 +3,10 @@
 
 Lightweight authentication server based on [JSON Web Token](https://jwt.io/introduction/).
 
+## Version
+- 0.1.0 (development)
+
+### Workers
 - Express 4
 - MongoDB
 - Passport
