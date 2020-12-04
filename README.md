@@ -14,7 +14,7 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
 - Google ReCaptcha v3
 - I18n
 
-### Tool Prerequisites
+### Tools
 
 - [NPM](https://npmjs.org) - Node.js package manager.
 - [Grunt](http://gruntjs.com/) - The JavaScript Task Runner.
