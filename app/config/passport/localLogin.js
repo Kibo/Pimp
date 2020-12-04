@@ -31,7 +31,7 @@ module.exports = function(passport){
         }
         
         if (!user.isActive) {
-          return done(null, false, {email:email, message: 'Your account has not been activated.'})
+          return done(null, false, {email:email, message: 'Sorry, your account has not been approved by an administrator.'})
         }
 
         return done(null, user)

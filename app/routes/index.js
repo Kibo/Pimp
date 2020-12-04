@@ -3,9 +3,9 @@ const Route = express.Router();
 const config = require('../config/config');
 const passport = require('passport');
 
-const managerUsersRoutes = require('./manager-users');
-const managerSettingsRoutes = require('./manager-settings');
-const managerLogsRoutes = require('./manager-logs');
+const managerUsersRoutes = require('./manager/users');
+const managerTokensRoutes = require('./manager/tokens');
+const managerLogsRoutes = require('./manager/logs');
 
 const Auth = require(config.root + '/app/middleware/authorization');
 const Recaptcha = require(config.root + '/app/middleware/recaptcha');
@@ -33,21 +33,14 @@ Route
 	.post('/users/session', 
 		passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
-		
-	.get('/login/google', passport.authenticate("google", {scope: ['openid', 'email', 'profile']}))
-	.get('/login/google/callback',
-		passport.authenticate('google', { 
-			failureRedirect: '/login',
-			failureFlash : true}),
-  			userController.session)
-  			   
+		  			  
 	//Manager
 	.get('/manager', Auth.requiresLogin, Auth.needsRole(['admin']), function(req, res){
 		res.redirect('/manager/users/all')
 	})
 			
 	.use('/manager/users', managerUsersRoutes)
-	.use('/manager/setting', managerSettingsRoutes)
+	.use('/manager/tokens', managerTokensRoutes)
 	.use('/manager/logs', managerLogsRoutes)
 		
 	.get('/401', function(req, res){ 

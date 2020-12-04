@@ -59,12 +59,9 @@ exports.signup = function (req, res) {
 exports.create = function (req, res, next) {
   var user = new User(req.body)
   user.provider = 'local'  
-  user.isActive = true
+  user.isActive = false
   user.isNotofication = false  
-  
-  // TODO
-  user.roles.push('admin')
-     
+        
   user.save(function (err, new_user) {
     if (err) {       	        	    	    
       return res.render('users/signup', {      	      	     
@@ -72,17 +69,11 @@ exports.create = function (req, res, next) {
         user: user        
       })
     } else {
-      console.log(user)
-      // manually login the user once successfully signed up
-      req.logIn(user, function(err) {
-        if (err) {
-          console.log(err)
-          return next(err)
-        }
-                                                        
-        req.flash('info', {'msg':'Success! You are logged in.'})	
+		console.log(user)
+                                                             
+        req.flash('info', {'msg':'Success! You are signed-up.'})	
         return res.redirect('/')
-      })
+      
     }
   })
 }

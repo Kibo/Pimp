@@ -29,12 +29,7 @@ var config = {
 		},					
 		log:{
 			isLog:false
-		},
-		google:{
-			CLIENT_ID:"",
-			CLIENT_SECRET:"",
-			callbackURL:"http://localhost:3000/login/google/callback"
-		}
+		}		
 	},	
 	
 	production: {},		

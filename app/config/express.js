@@ -17,7 +17,6 @@ const env				= process.env.NODE_ENV || 'development';
 const pkg				= require('../../package.json');
 const flash				= require('express-flash');
 const routes			= require('../routes');
-const Form = require(config.root + '/app/models/form');
 
 module.exports = function (app, express, passport, mongoose) {
 	
@@ -77,8 +76,7 @@ module.exports = function (app, express, passport, mongoose) {
   
   app.use(function (req, res, next) {
 		res.locals.config      = config;
-    	res.locals.NODE_ENV = env;
-    	res.locals.form = new Form();    	    
+    	res.locals.NODE_ENV = env;    	 	   
     	if(_.isObject(req.user)) {
       		res.locals.User = req.user
     	}  	    
