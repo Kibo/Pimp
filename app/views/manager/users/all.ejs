@@ -18,7 +18,7 @@
 			<td><%=users[i].lastname%> <%=users[i].firstname%></td>
 			<td><%=users[i].email%></td>
 			<td><%=users[i].roles.join(", ")%>								
-			<td><%=users[i].isActive%>
+			<td><a title="change" href="/manager/users/toggle/<%=users[i].id%>"><%-users[i].isActive ? '<span class="badge badge-success">true</span>' : '<span class="badge badge-danger">false</span>' %></a>
 			</td>											
 			<td class="text-right">
 				<div class="btn-group btn-group-sm">					

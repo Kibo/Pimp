@@ -69,11 +69,10 @@ exports.create = function (req, res, next) {
         user: user        
       })
     } else {
-		console.log(user)
-                                                             
-        req.flash('info', {'msg':'Success! You are signed-up.'})	
-        return res.redirect('/')
-      
+		console.log(user)  	                                                      	
+        req.flash('errors', {'msg':'Please wait while the administrator approve your account.'})
+        req.flash('info', {'msg':'Success! You are signed-up.'})
+        return res.redirect('/')           
     }
   })
 }

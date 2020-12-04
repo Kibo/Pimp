@@ -12,4 +12,5 @@ Route
 	.get('/password/edit/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.password)
 	.post('/password/save', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.passwordSave)	
 	.get('/delete/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.delete)
+	.get('/toggle/:id', Auth.requiresLogin, Auth.needsRole(['admin']), managerUserController.toggle)
 module.exports = Route

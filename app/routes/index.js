@@ -34,11 +34,7 @@ Route
 		passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
 		  			  
-	//Manager
-	.get('/manager', Auth.requiresLogin, Auth.needsRole(['admin']), function(req, res){
-		res.redirect('/manager/users/all')
-	})
-			
+	 //Manager		
 	.use('/manager/users', managerUsersRoutes)
 	.use('/manager/tokens', managerTokensRoutes)
 	.use('/manager/logs', managerLogsRoutes)

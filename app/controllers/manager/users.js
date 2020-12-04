@@ -87,3 +87,20 @@ exports.passwordSave = async function( req, res, next ){
 	res.redirect('/manager/users/all');
 	return  	
 }
+
+exports.toggle = async function( req, res, next ){		
+	let user = await User.findById( req.params.id  ).exec()
+	user.isActive = user.isActive ? false : true;
+	
+	try {
+  		await user.save()
+  	}catch(err){
+  		req.flash('errors', {'msg':'Opps, Error change status.'})					
+		res.redirect('/manager/users/all');
+		return
+  	}
+  	
+  	req.flash('success', {'msg':'User has been updated.'})			
+	res.redirect('/manager/users/all');
+	return 
+}
