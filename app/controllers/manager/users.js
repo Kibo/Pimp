@@ -100,6 +100,8 @@ exports.toggle = async function( req, res, next ){
 		return
   	}
   	
+  	//TODO - send email to user
+  	
   	req.flash('success', {'msg':'User has been updated.'})			
 	res.redirect('/manager/users/all');
 	return 

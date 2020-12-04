@@ -6,7 +6,7 @@ var errorHelper = require(config.root + '/app/helper/errors');
 var Mailer   = require(config.root + '/app/helper/mailer');
 
 var login = function (req, res) {	
-  var redirectTo = req.session.returnTo ? req.session.returnTo : '/'
+  var redirectTo = req.session.returnTo ? req.session.returnTo : '/users/profile'
   delete req.session.returnTo
   req.flash('success', { msg: 'Success! You are logged in.' });
   res.redirect(redirectTo)
@@ -22,7 +22,7 @@ exports.session = login
  */
 exports.login = function (req, res) {		
   if(req.isAuthenticated()){
-    res.redirect('/')
+    res.redirect('/user/profile')
   }else{  	  	  	 
     res.render('users/login', {      
       errors: req.flash('error'),
@@ -61,6 +61,7 @@ exports.create = function (req, res, next) {
   user.provider = 'local'  
   user.isActive = false
   user.isNotofication = false  
+  user.roles.push("member")
         
   user.save(function (err, new_user) {
     if (err) {       	        	    	    
@@ -69,10 +70,18 @@ exports.create = function (req, res, next) {
         user: user        
       })
     } else {
-		console.log(user)  	                                                      	
-        req.flash('errors', {'msg':'Please wait while the administrator approve your account.'})
+		
+	   console.log(user)
+      // manually login the user once successfully signed up
+      req.logIn(user, function(err) {
+        if (err) {
+          console.log(err)
+          return next(err)
+        }
+                                                                       
         req.flash('info', {'msg':'Success! You are signed-up.'})
-        return res.redirect('/')           
+        return res.redirect('/users/profile') 
+      })				 	                                                      	               
     }
   })
 }
@@ -135,4 +144,11 @@ exports.resetPassword = function( req, res, next ){
 			})									
 		});																							 	
 	})	
+}
+
+exports.profile = async function(req, res, next){
+	res.render('users/profile', {      
+    	user: req.user   
+    })	
+	return	
 }

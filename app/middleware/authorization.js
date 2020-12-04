@@ -13,7 +13,7 @@ exports.requiresLogin = function (req, res, next) {
 
 exports.hasLogin = function (req, res, next) {
   if (req.isAuthenticated()) {
-    res.redirect('/')
+    res.redirect('/user/profile')
   } else {
     next()
   }

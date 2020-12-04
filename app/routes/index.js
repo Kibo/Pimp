@@ -26,13 +26,14 @@ Route
 	.get('/login', userController.login)	
 	.get('/logout', userController.logout)
 	.get('/forget-password', userController.forgetPasswordForm)
-	.post('/reset-password', userController.resetPassword)
-	 
+	.post('/reset-password', userController.resetPassword)	 
 	 .get('/signup', userController.signup)     
+	 
 	.post('/users/create', userController.create)	
 	.post('/users/session', 
 		passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
+	.get('/users/profile', Auth.requiresLogin, userController.profile)	
 		  			  
 	 //Manager		
 	.use('/manager/users', managerUsersRoutes)
