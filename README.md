@@ -23,6 +23,80 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
   $ grunt
 ```
 ## Endpoints
-- POST /api/v1/signup
-- POST /api/v1/login
-- TODO
+### POST /api/v1/login
+```
+REQUEST:{
+	Header:{
+		Content-Type:application/json
+		Accept:application/json
+	},
+	Body:{
+	 	"username": "john",
+    	"password": "hashed_password"
+	}
+}
+
+RESPONSE:{
+	status:200,
+	header:{
+		Content-Type:application/json
+	},
+	body:{		
+		token:"1234.4567.78910"
+	}
+}
+```
+
+### POST /api/v1/refresh
+```
+REQUEST:{
+	Header:{
+		Content-Type:application/json
+		Accept:application/json
+
+	},
+	Body:{
+	 	token:"1234.5678.9101112" 
+	}
+}
+
+RESPONSE:{
+	status:200,
+	header:{
+		Content-Type:application/json
+	},
+	body:{		
+		token:"13141516.17181920.21222324"
+	}
+}
+```
+***
+### Token
+```
+{
+    header:{
+        "alg": "HS256",
+        "typ": "JWT"
+    },
+    payload:{
+        iat:"token creation time",
+		iss:"domain name",
+		exp:"time until is valid",
+		data:{
+		    userId: "12345",
+		    firstname:"John",
+		    lastname:"Deen"
+		    email:"deen@email.com",
+		    roles:["role1", "role2"],
+		    isActive:Boolean,
+		    isNotification:Boolean
+		}
+    },
+    sign:"hash-123456"
+}
+```
+
+### TODO
+- Add Captcha to login, reset, signup forms
+- Create a temporary password if password reset.
+

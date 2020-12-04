@@ -10,19 +10,15 @@ const managerLogsRoutes = require('./manager/logs');
 const Auth = require(config.root + '/app/middleware/authorization');
 const Recaptcha = require(config.root + '/app/middleware/recaptcha');
 
-const pageController = require(config.root + '/app/controllers/pages');
 const userController = require(config.root + '/app/controllers/users');
 
 // Frontend routesuploads
 Route	
 	// Web Index page
 	.get('/', function(req, res){
-		res.redirect(config.pages.index);
+		return res.render('pages/index')
 	 })
-	 
-	 // Common
-	.get('/pages/index', pageController.index)
-  
+	 	  
 	.get('/login', userController.login)	
 	.get('/logout', userController.logout)
 	.get('/forget-password', userController.forgetPasswordForm)

@@ -97,18 +97,22 @@ exports.forgetPasswordForm = function( req, res, next ){
 }
 
 exports.resetPassword = function( req, res, next ){
+	
+	if(!req.body['email']){
+		res.redirect('/forget-password');	
+	}
 		
 	User.findOne( { email: req.body['email'] } , function (err, user) {			
 		
 		if (err) {
 			console.error( err )
-  			req.flash('errors', {'msg':'Nepodařilo se ověřit uživatele.'})					
+  			req.flash('errors', {'msg':'Failed to authenticate user.'})					
 			res.redirect('/forget-password');
 			return
 		}
 		
 		if(!user){
-			req.flash('errors', {'msg':'Uživatelel s uvedeným emailem není registrován.'})
+			req.flash('errors', {'msg':'The user with the given email is not registered.'})
 			res.render('users/reset-password', {      
       			email: req.body['email']
     		})										
@@ -120,7 +124,7 @@ exports.resetPassword = function( req, res, next ){
 		user.save(function(err){
 			if(err){
 				console.error( err )
-				req.flash('errors', {'msg':'Heslo se nepodařilo resetovat.'})					
+				req.flash('errors', {'msg':'Failed to reset password.'})					
 				res.redirect('/forget-password');
 				return	
 			}	
@@ -131,12 +135,12 @@ exports.resetPassword = function( req, res, next ){
 			template:"reset.ejs",
 			templateData:{password:user.password}
 			}).then(function( result){			
-				req.flash('info', {'msg':'Email s dočasným heslem byl odeslán.'})									
+				req.flash('info', {'msg':'Temporary password has been sent to e-mail.'})									
 				res.redirect('/login');					
 				return 											
 			}, function(err){
 				console.error( err )					
-				req.flash('errors', {'msg':'Chyba odeslání emailu.'})
+				req.flash('errors', {'msg':'Error sending email.'})
 				res.render('users/reset', {      
       				email: req.body['email']
     			})			 
