@@ -101,7 +101,7 @@ RESPONSE:{
 			isNotification:Boolean
 		}
     },
-    sign:"hash-123456"
+    signature:"hash-123456"
 }
 ```
 

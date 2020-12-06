@@ -12,21 +12,14 @@ const MongoStore       = require('connect-mongo')(session);
 const errorHandler     = require('errorhandler');
 const _                = require('underscore');
 const i18n				= require("i18n");
+const cors 				= require('cors')
 const engine 			= require('ejs-mate');
 const env				= process.env.NODE_ENV || 'development';
 const pkg				= require('../../package.json');
 const flash				= require('express-flash');
 const routes			= require('../routes');
 
-module.exports = function (app, express, passport, mongoose) {
-	
-	var allowCrossDomain = function(req, res, next) {
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header('Access-Control-Allow-Credentials', true)
-		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-		next();
-	};
-  	
+module.exports = function (app, express, passport, mongoose) {	
   // settings
   app.set('env', env);
   app.set('port', app.config.server.port || 3000);
@@ -40,7 +33,7 @@ module.exports = function (app, express, passport, mongoose) {
   
   // Express use middlewares
   app.use(favicon(path.join(app.config.root, 'public/favicon.png')));
-  app.use(allowCrossDomain);
+  app.use( cors() );
   
   if (env === 'development') {
   	app.use(logger('dev'))
