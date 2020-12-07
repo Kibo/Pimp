@@ -27,7 +27,13 @@ var TokenSchema = new Schema({
   	secret:{
     	type: String,    
     	require: true
-  	}  		   	  
+  	},
+  	
+  	// the number of second a token will be valid
+	exp: { 
+		type: Number,
+		require: true 		
+	}  		   	  
 })
 
 

@@ -41,7 +41,8 @@ REQUEST:{
 	},
 	Body:{
 		"email": "deen@email.com",
-		"password": "hashed_password"
+		"password": "hashed_password",
+		"iss":"www.klient-app.com"
 	}
 }
 
@@ -51,7 +52,7 @@ RESPONSE:{
 		Content-Type:application/json
 	},
 	body:{		
-		token:"1234.4567.78910"
+		accessToken:"1234.4567.78910"
 	}
 }
 ```
@@ -65,7 +66,7 @@ REQUEST:{
 
 	},
 	Body:{
-		token:"1234.5678.9101112" 
+		token:"xxxxxxx.yyyyyyyy.zzzzzzzzz" 
 	}
 }
 
@@ -75,7 +76,7 @@ RESPONSE:{
 		Content-Type:application/json
 	},
 	body:{		
-		token:"13141516.17181920.21222324"
+		accessToken:"xxxxxxx.yyyyyyyy.zzzzzzzzz"
 	}
 }
 ```
@@ -91,7 +92,7 @@ RESPONSE:{
 		iat:"token creation time",
 		iss:"domain name",
 		exp:"time until is valid",
-		data:{
+		user:{
 			userId: "12345",
 			firstname:"John",
 			lastname:"Deen"
