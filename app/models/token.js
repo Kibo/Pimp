@@ -5,13 +5,7 @@ var Schema = mongoose.Schema;
  * Token Schema
  */
 var TokenSchema = new Schema({ 	
-	
-	// token creation time
-	iat:{
-		type: Date, 
-		default: Date.now 
-	},
-	
+		
 	// algorithm for secret sign
 	alg:{ 
     	type: String,    
@@ -24,20 +18,39 @@ var TokenSchema = new Schema({
   	// A string containing the name or identifier of the issuer application. 
   	//Can be a domain name and can be used to discard tokens from other applications.
   	iss:{   		
-  		type: String
+  		type: String,
+  		require: true,
+  		unique: true,
   	},
   	
   	// the secret to sign the JWT token
-  	accessTokenSecret:{
+  	secret:{
     	type: String,    
     	require: true
-  	},
-  		   
-	// the number of units(sec, mins, hours) the token will be valid
-	exp: { 
-		type: Number,
-		require: true 		
-	}    
+  	}  		   	  
 })
+
+
+TokenSchema.path('iss').validate(function ( iss ) { 	
+  	return iss.length
+}, 'Iss cannot be blank.')
+
+TokenSchema.path('iss').validate( function( iss ){	
+	var Token = mongoose.model('Token')
+	  	   
+  	if (this.isNew || this.isModified('iss')) {  			
+  			return new Promise(function(resolve, reject){  				
+  				Token.find({ iss: iss }).exec(function (err, tokens) {
+      				if(!err && tokens.length === 0){
+      					resolve (true)
+      				}
+    				reject( Error('Iss already exists.') );    			
+    			})  				  							 	  		  		 			
+			})  						    			   
+  	} else{
+  		return true;
+  	}
+		
+}, 'Iss already exists.')
 
 module.exports = mongoose.model('Token', TokenSchema)

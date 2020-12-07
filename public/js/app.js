@@ -23,6 +23,21 @@ $(function() {
 });
 
 /**
+ * Generates a random string of characters
+ *  
+ * @param {Number} len -  length of string
+ */
+function generateRandomString( len=32){		
+	let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";	
+	let output = ""
+	
+	for( let i=0; i < len; i++ ){
+    	output += chars.charAt(Math.floor(Math.random() * chars.length));
+    }	
+	return output;	
+}
+
+/**
  * Send form with recaptcha token
  * 
  * @param {String} parent form ID

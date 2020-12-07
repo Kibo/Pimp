@@ -1,0 +1,49 @@
+<% layout('layouts/manager') -%>
+			
+<% include ../../includes/flash %>
+		
+<table class="table table-hover">
+	<thead class="thead-light">
+		<tr>							
+			<th>iss</th>							
+			<th>alg</th>																												
+			<th>secret</th>
+			<th>Active</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var i = 0, l = tokens.length; i < l; i++){ %>
+		<tr>							
+			<td><%=tokens[i].iss%></td>
+			<td><%=tokens[i].alg%></td>																
+			<td>				
+				<button class="btn btn-sm btn-copy" data-clipboard-text="<%=tokens[i].secret%>" >
+    				<i class="fa fa-clipboard" aria-hidden="true"></i>
+				</button>				
+			</td>
+			<td><a title="change" href="/manager/tokens/toggle/<%=tokens[i].id%>"><%-tokens[i].isActive ? '<span class="badge badge-success">true</span>' : '<span class="badge badge-danger">false</span>' %></a>			
+			<td class="text-right">
+				<div class="btn-group btn-group-sm">					
+					<a href="/manager/tokens/edit/<%=tokens[i].id%>" class="btn btn-success">Edit</a>													
+					<a href="/manager/tokens/delete/<%=tokens[i].id%>" class="btn btn-danger" onclick="return confirm('Delete token: <%=tokens[i].iss%> ?')">Delete</a>								
+				</div>
+		 	</td>															
+		</tr>
+		<% } %>			
+		<%if(tokens.length === 0){%>
+		<tr>
+			<td colspan="4" class="text-center">Empty list.</td>
+		</tr>
+		<%}%>										
+	</tbody>
+</table>							
+
+<script>	
+	document.querySelector(".link-tokens").classList.add("active");	
+</script>
+
+<script src="/vendor/clipboard/v2_0_6/clipboard.min.js"></script>
+<script>		
+	new ClipboardJS('.btn-copy');
+</script>
