@@ -12,7 +12,6 @@ const MongoStore       = require('connect-mongo')(session);
 const errorHandler     = require('errorhandler');
 const _                = require('underscore');
 const i18n				= require("i18n");
-const cors 				= require('cors')
 const engine 			= require('ejs-mate');
 const env				= process.env.NODE_ENV || 'development';
 const pkg				= require('../../package.json');
@@ -33,7 +32,6 @@ module.exports = function (app, express, passport, mongoose) {
   
   // Express use middlewares
   app.use(favicon(path.join(app.config.root, 'public/favicon.png')));
-  app.use( cors() );
   
   if (env === 'development') {
   	app.use(logger('dev'))

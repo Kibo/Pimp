@@ -2,10 +2,12 @@ const express = require('express');
 const Route = express.Router();
 const config = require('../config/config');
 const passport = require('passport');
+const cors 				= require('cors');
 
 const managerUsersRoutes = require('./manager/users');
 const managerTokensRoutes = require('./manager/tokens');
 const managerLogsRoutes = require('./manager/logs');
+const apiTokensRoutes = require('./api/tokens');
 
 const Auth = require(config.root + '/app/middleware/authorization');
 const Recaptcha = require(config.root + '/app/middleware/recaptcha');
@@ -30,6 +32,9 @@ Route
 		passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
 	.get('/users/profile', Auth.requiresLogin, userController.profile)	
+	
+	// API
+	.use('/api/v1/', cors(), apiTokensRoutes)
 		  			  
 	 //Manager		
 	.use('/manager/users', managerUsersRoutes)
