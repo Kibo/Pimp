@@ -8,6 +8,7 @@
 			<th>iss</th>							
 			<th>alg</th>																												
 			<th>secret</th>
+			<th>exp in second</th>
 			<th>Active</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -22,6 +23,7 @@
     				<i class="fa fa-clipboard" aria-hidden="true"></i>
 				</button>				
 			</td>
+			<td><%=tokens[i].exp%></td>	
 			<td><a title="change" href="/manager/tokens/toggle/<%=tokens[i].id%>"><%-tokens[i].isActive ? '<span class="badge badge-success">true</span>' : '<span class="badge badge-danger">false</span>' %></a>			
 			<td class="text-right">
 				<div class="btn-group btn-group-sm">					
@@ -33,7 +35,7 @@
 		<% } %>			
 		<%if(tokens.length === 0){%>
 		<tr>
-			<td colspan="4" class="text-center">Empty list.</td>
+			<td colspan="6" class="text-center">Empty list.</td>
 		</tr>
 		<%}%>										
 	</tbody>

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 exports.login = function (req, res, next) {
 	const { email, password, iss } = req.body;
 		
-	if(!email || !password || !iss ){				
+	if( !email || !password || !iss){				
 		res.status(401)
 		res.send('Missing credentials.');
 		return	
@@ -41,9 +41,13 @@ exports.login = function (req, res, next) {
 			res.send('Incorrect credentials');
 			return	
 		}
+		
+		let nowInSecond = Math.floor( new Date().getTime() / 1000 );
 					
 		let payload = {
-			iat: (new Date().getTime() / 1000), //actual Time in seconds
+			iat: nowInSecond, 
+			exp: nowInSecond + token.exp,
+			iss: token.iss,
 			user:{
 				userId: user.id,
 				firstname: user.firstname,
@@ -51,14 +55,11 @@ exports.login = function (req, res, next) {
 				email: user.email,
 				roles: user.roles,
 				isActive: user.isActive,
-				isNotification: user.isNotification}			
+				isNotification: user.isNotofication}			
 		}
-						
+										
 		let options = {
-			algorithm: token.alg,
-			issuer: iss,			
-			//expiresIn: new Date().getTime() + token.exp,			
-			expiresIn: Math.floor((new Date().getTime() + 60 * 60 * 1000)/1000) // 1h
+			algorithm: token.alg,												
 		}						
 				
 		const accessToken = jwt.sign(payload, token.secret, options);

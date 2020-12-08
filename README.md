@@ -40,8 +40,8 @@ REQUEST:{
 		Accept:application/json
 	},
 	Body:{
-		"email": "deen@email.com",
-		"password": "hashed_password",
+		"email": "deen@email.com"
+		"password": "password"
 		"iss":"www.klient-app.com"
 	}
 }

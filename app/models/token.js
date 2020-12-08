@@ -29,10 +29,11 @@ var TokenSchema = new Schema({
     	require: true
   	},
   	
-  	// the number of second a token will be valid
+  	//the number of seconds the token will be valid
 	exp: { 
 		type: Number,
-		require: true 		
+		require: true,
+		default:60*60		
 	}  		   	  
 })
 
