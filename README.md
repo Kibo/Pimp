@@ -63,11 +63,9 @@ REQUEST:{
 	Header:{
 		Content-Type:application/json
 		Accept:application/json
-
+		Authorization:Bearer [JWT_TOKEN]
 	},
-	Body:{
-		token:"xxxxxxx.yyyyyyyy.zzzzzzzzz" 
-	}
+	Body:{}
 }
 
 RESPONSE:{
@@ -93,13 +91,14 @@ RESPONSE:{
 		iss:"domain name",
 		exp:"time until is valid",
 		user:{
-			userId: "12345",
+			id: "12345",
 			firstname:"John",
 			lastname:"Deen"
 			email:"deen@email.com",
 			roles:["role1", "role2"],
 			isActive:Boolean,
-			isNotification:Boolean
+			isNotification:Boolean,
+			provider:"local"
 		}
     },
     signature:"hash-123456"
