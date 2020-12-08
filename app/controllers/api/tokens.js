@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Token = mongoose.model('Token');
+const Log = mongoose.model('Log');
 const User = mongoose.model('User');
 const config = require('../../config/config');
 const errorHelper = require(config.root + '/app/helper/errors');
@@ -14,14 +15,14 @@ exports.login = function (req, res, next) {
 		return	
 	}
 	
-	User.findOne( { email: email } , async function (err, user) {
+	User.findOne( { email: email, isActive:true } , async function (err, user) {
 		if(err){
 			res.status(500);
 			res.send('Oops. An error has occured.');
 			return
 		}
 		
-		if(!user || !user.authenticate(password) ){
+		if(!user || !user.authenticate(password) ){			
 			res.status(401)
 			res.send('Incorrect credentials');
 			return
@@ -41,16 +42,10 @@ exports.login = function (req, res, next) {
 			res.send('Incorrect credentials');
 			return	
 		}
-																	
-		let options = {
-			algorithm: token.alg,												
-		}						
-				
-		const accessToken = jwt.sign(getPayload(token, user), token.secret, options);
-							
+																																	
 		res.status(200)
 		res.json({
-            accessToken
+            accessToken:getToken(token, user)
         });
 		return 		
 	})			
@@ -85,22 +80,15 @@ exports.refresh = async function (req, res, next) {
 	}
 		
 	jwt.verify(accessToken, token.secret, async function (err, payload){
-		if (err) {
+		if (err) {			
 			res.status(403);
-			res.send('Access is forbidden.');            	
+			res.send( err.message );            	
 		    return
 		}
-		
-		let nowInSecond = Math.floor( new Date().getTime() / 1000 );
-		if( payload.exp < nowInSecond ){
-			res.status(403);
-			res.send('Token expired.');            	
-		    return	
-		}
-				
+						
 		let user
 		try{
-			user = await User.findById( payload.user.id  ).exec()	
+			user = await User.findOne( { email: payload.user.email, isActive:true }).exec()	
 		}catch(e){
 			res.status(500);
 			res.send('Oops. An error has occured.');
@@ -112,19 +100,28 @@ exports.refresh = async function (req, res, next) {
 			res.send('Incorrect credentials');
 			return	
 		}
-													
-		let options = {
-			algorithm: token.alg,												
-		}						
-				
-		const refreshedAccessToken = jwt.sign(getPayload(token, user), token.secret, options);
-						
+																							
 		res.status(200)
 		res.json({
-	        refreshedAccessToken
+	        accessToken:getToken(token, user)
 	    });
 		return					         
      });	
+}
+
+/**
+ * Create JWT token
+ * 
+ * @param {Object} token
+ * @param {Object} user
+ * 
+ * @return {Object} jwt
+ */
+function getToken( token, user){
+	return jwt.sign(
+			getPayload(token, user), 
+			token.secret, 
+			getOptionsForJWT(token));
 }
 
 /**
@@ -136,18 +133,23 @@ exports.refresh = async function (req, res, next) {
  * 
  * @return {Object}
  */
-function getPayload(token, user, nowInSecond = Math.floor( new Date().getTime() / 1000 )){
-	let publicUser = user.toJSON();
-	publicUser.id = publicUser._id;
-	delete publicUser._id; 
-	delete publicUser.salt;
-	delete publicUser.hashed_password;
-	delete publicUser.__v
-		
+function getPayload(token, user, nowInSecond = Math.floor( new Date().getTime() / 1000 )){	
 	return {
 			iat: nowInSecond, 
 			exp: nowInSecond + token.exp,
 			iss: token.iss,
-			user:publicUser			
+			user:user.toPayload()			
 	}	
+}
+
+/**
+ * Create options for JWT token
+ * 
+ * @param {Object} token
+ * @return {Object} options
+ */
+function getOptionsForJWT( token ){
+	return {
+			algorithm: token.alg,												
+		}				
 }

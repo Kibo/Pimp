@@ -153,6 +153,19 @@ UserSchema.methods = {
    */
   doesNotRequireValidation: function() {
     return ~oAuthTypes.indexOf(this.provider);
+  },
+  
+  /**
+   * Create payload for JWT token
+   */
+  toPayload:function(){
+  	let payload = this.toJSON();	
+	delete payload._id; 
+	delete payload.salt;
+	delete payload.hashed_password;
+	delete payload.provider
+	delete payload.__v
+  	return payload  	
   }
 }
 

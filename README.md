@@ -1,7 +1,8 @@
 # Pimp
 <img align="right" src="https://raw.githubusercontent.com/Kibo/Pimp/master/public/img/pimp_logo_200.png">
 
-Lightweight authentication server based on [JSON Web Token](https://jwt.io/introduction/).
+Lightweight authentication server based on [JSON Web Token](https://jwt.io/introduction/). 
+Contains users management, tokens management, logging. 
 
 ## Version
 - 0.1.0 (development)
@@ -90,18 +91,16 @@ RESPONSE:{
 		iat:"token creation time",
 		iss:"domain name",
 		exp:"time until is valid",
-		user:{
-			id: "12345",
+		user:{			
 			firstname:"John",
 			lastname:"Deen"
 			email:"deen@email.com",
 			roles:["role1", "role2"],
 			isActive:Boolean,
-			isNotification:Boolean,
-			provider:"local"
+			isNotification:Boolean,			
 		}
     },
-    signature:"hash-123456"
+    signature:"zzzzzzzzz"
 }
 ```
 

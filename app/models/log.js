@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 /**
- * Page Schema
+ * Log Schema
  */
 var LogSchema = new Schema({ 	
 	status:Number,
@@ -10,21 +10,5 @@ var LogSchema = new Schema({
 	message:String,
 	created: { type: Date, default: Date.now }    
 })
-
-/**
- * Virtuals
- */
-  
-/**
- * Validations
- */
-
-/**
- * Methods
- */
-LogSchema.methods = {
-	
-	
-}
 
 module.exports = mongoose.model('Log', LogSchema)
