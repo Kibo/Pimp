@@ -11,7 +11,7 @@ exports.login = function (req, res, next) {
 		
 	if( !email || !password || !iss){				
 		res.status(401)
-		res.send('Missing credentials.');
+		res.send('Missing credentials');
 		return	
 	}
 	
