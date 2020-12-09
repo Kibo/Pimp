@@ -28,7 +28,7 @@ Contains users management, tokens management, logging.
   $ git clone https://github.com/Kibo/Pimp.git
   $ cd Pimp
   $ npm install 
-  $ grunt
+  $ npm start
 ```
 ### Local login
 - localhost:3000/login
@@ -36,6 +36,7 @@ Contains users management, tokens management, logging.
 - 1234
 
 ### Tests
+```
 	$ npm test 
 ```
 
@@ -112,6 +113,7 @@ RESPONSE:{
 ```
 
 ### TODO
+- Local login
 - Logger
 - Google ReCaptcha v3 to login, reset, signup forms
 - Create a temporary password if password reset.
