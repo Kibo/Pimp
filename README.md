@@ -2,7 +2,7 @@
 <img align="right" src="https://raw.githubusercontent.com/Kibo/Pimp/master/public/img/pimp_logo_200.png">
 
 Lightweight authentication server based on [JSON Web Token](https://jwt.io/introduction/). 
-Contains users management, tokens management, logging. 
+It contains users management, tokens management, logging. 
 
 ## Version
 - 0.8.0 ( testing )
@@ -25,10 +25,10 @@ Contains users management, tokens management, logging.
 
 ### Install
 ```
-  $ git clone https://github.com/Kibo/Pimp.git
-  $ cd Pimp
-  $ npm install 
-  $ npm start
+	$ git clone https://github.com/Kibo/Pimp.git
+	$ cd Pimp
+	$ npm install 
+	$ npm start
 ```
 ### Local login
 - localhost:3000/login
