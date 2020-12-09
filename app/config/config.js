@@ -1,6 +1,6 @@
-var path = require('path');
-var os = require('os');
-var rootPath = path.normalize(__dirname + '/../..');
+const path = require('path');
+const os = require('os');
+const rootPath = path.normalize(__dirname + '/../..');
 
 var config = {
 	
@@ -8,15 +8,15 @@ var config = {
 		root: rootPath,		
 						
 		server: {
-      		port: 3000,
-      		hostname: 'localhost',
-    	},
-    	
-    	database: {
-      		url: 'mongodb://localhost:27017/pimp'
-    	},
-    	
-    	mail: {
+			port: 3000,
+			hostname: 'localhost',
+		},
+
+		database: {
+			url: 'mongodb://localhost:27017/pimp'
+		},
+
+		mail: {
 			user: 'TODO@gmail.com',
 			password: 's5cr5t',	
 		},							
@@ -35,15 +35,15 @@ var config = {
 		root: rootPath,		
 						
 		server: {
-      		port: 3000,
-      		hostname: 'localhost',
-    	},
-    	
-    	database: {
-      		url: 'mongodb://localhost:27017/pimp-test'
-    	},
-    	
-    	mail: {
+			port: 3000,
+			hostname: 'localhost',
+		},
+
+		database: {
+			url: 'mongodb://localhost:27017/pimp-test'
+		},
+		
+		mail: {
 			user: 'TODO@gmail.com',
 			password: 's5cr5t',	
 		},							

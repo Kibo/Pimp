@@ -21,7 +21,7 @@ Contains users management, tokens management, logging.
 - [Grunt](http://gruntjs.com/) - The JavaScript Task Runner.
 
 ### Before install
-- pls, see [config.js](https://github.com/Kibo/Pimp/blob/master/app/config/config.js)
+- pls, see [config.js](https://github.com/Kibo/Pimp/blob/master/app/config/config.js). Especially **the database section**.
 
 ### Install
 ```
