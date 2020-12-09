@@ -5,13 +5,13 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
 Contains users management, tokens management, logging. 
 
 ## Version
-- 0.1.0 (development)
+- 0.8.0 ( testing )
 
 ### Workers
+- Node (currently: v12.18.2)
 - Express 4
 - MongoDB
 - Passport
-- TODO LOGGER
 - Google ReCaptcha v3
 - I18n
 
@@ -19,6 +19,9 @@ Contains users management, tokens management, logging.
 
 - [NPM](https://npmjs.org) - Node.js package manager.
 - [Grunt](http://gruntjs.com/) - The JavaScript Task Runner.
+
+### Before install
+- pls, see [config.js](https://github.com/Kibo/Pimp/blob/master/app/config/config.js)
 
 ### Install
 ```
@@ -31,6 +34,10 @@ Contains users management, tokens management, logging.
 - localhost:3000/login
 - admin@admin.com
 - 1234
+
+### Tests
+	$ npm test 
+```
 
 ## Endpoints
 ### POST /api/v1/login
