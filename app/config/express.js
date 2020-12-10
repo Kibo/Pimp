@@ -6,7 +6,7 @@ const methodOverride   = require('method-override');
 const compression      = require('compression');
 const favicon          = require('serve-favicon');
 const bodyParser       = require('body-parser');
-const cookieParser     = require('cookie-parser');
+//const cookieParser     = require('cookie-parser');
 const session          = require('express-session');
 const MongoStore       = require('connect-mongo')(session);
 const errorHandler     = require('errorhandler');
@@ -43,14 +43,14 @@ module.exports = function (app, express, passport, mongoose) {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(methodOverride()); 
       
-  app.use(cookieParser());
+  //app.use(cookieParser());
   app.use(session({  	
     secret: pkg.name, 
     resave: false,
-    saveUninitialized: true,   
+    saveUninitialized: false,   
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   }));
-  
+    
   // Locales
 	i18n.configure({
     	locales:['en', 'cs'],
@@ -61,7 +61,7 @@ module.exports = function (app, express, passport, mongoose) {
     
   // use passport session
   app.use(passport.initialize());
-  app.use(passport.session({ maxAge: new Date(Date.now() + 60) }));
+  //app.use(passport.session({ maxAge: new Date(Date.now() + 60) }));
   
   app.use(flash());
   

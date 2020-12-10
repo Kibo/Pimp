@@ -30,7 +30,7 @@ Route
 	 
 	.post('/users/create', userController.create)	
 	.post('/users/session', JWT.login,
-		passport.authenticate('jwt', {failureRedirect: '/login', failureFlash: true}), 
+		passport.authenticate('jwt', {session: false, failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
 			
 	.get('/users/profile', Auth.requiresLogin, userController.profile)	
