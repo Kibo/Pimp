@@ -1,11 +1,11 @@
 {
   "name": "Pimp",
-  "version": "0.0.1",
-  "description": "Lightweight JWT server",
+  "version": "0.9.1",
+  "description": "Lightweight authentication server based on JSON Web Token.",
   "author": "Tomas Jurman <tomasjurman@gmail.com> (https://github.com/Kibo)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kibo/TODO.git"
+    "url": "https://github.com/Kibo/Pimp.git"
   },
   "keywords": [
     "JWT",
@@ -40,6 +40,7 @@
     "mv": "^2.1.1",
     "nodemailer": "^6.4.14",
     "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "path-posix": "^1.0.0",
     "response-time": "^2.3.2",

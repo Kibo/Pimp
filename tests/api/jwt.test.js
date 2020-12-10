@@ -12,7 +12,7 @@ const ISS1 = "www.mail1.com"
 const ISS2 = "www.mail2.com"
 const TOKEN_SECRET = "s8cr5t"
 const EXPIRED_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDc1MjMzOTQsImV4cCI6MTYwNzUyNjk5NCwiaXNzIjoid3d3Lm1haWwxLmNvbSIsInVzZXIiOnsicm9sZXMiOlsibWVtYmVyIl0sImVtYWlsIjoidXNlcjFAbWFpbC5jb20iLCJpc0FjdGl2ZSI6dHJ1ZX19.ysb7ppD6UAEoPqfnoUe3TEbcp-r-buo7YDDJoNNM9-A"
-const BROKEN_TOKEN = "broken-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDc1MjMzOTQsImV4cCI6MTYwNzUyNjk5NCwiaXNzIjoid3d3Lm1haWwxLmNvbSIsInVzZXIiOnsicm9sZXMiOlsibWVtYmVyIl0sImVtYWlsIjoidXNlcjFAbWFpbC5jb20iLCJpc0FjdGl2ZSI6dHJ1ZX19.ysb7ppD6UAEoPqfnoUe3TEbcp-r-buo7YDDJoNNM9-A"
+const BROKEN_TOKEN =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MDc1MjMzOTQsImV4cCI6MTYwNzUyNjk5NCwiaXNzIjoid3d3Lm1haWwxLmNvbSIsInVzZXIiOnsicm9sZXMiOlsibWVtYmVyIl0sImVtYWlsIjoidXNlcjFAbWFpbC5jb20iLCJpc0FjdGl2ZSI6dHJ1ZX19.ysb7ppD6UAEoPqfnoUe3TEbcp-r-buo7YDDJoNNM9-A-broken"
 
 beforeAll ( async function(done){    
 		await new User({email:EMAIL1, password:PASS, roles:['member'], isActive:true, isNotification:true}).save()   

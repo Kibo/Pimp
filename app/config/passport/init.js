@@ -1,8 +1,9 @@
 const mongoose         = require('mongoose')
 const passport 		 = require('passport')
-const User             = mongoose.model('User')
 const localStrategy = require('./localLogin');
+const jwtStrategy = require('./jwtLogin');
 const config 		= require('../config');
+var User             = mongoose.model('User')
 
 module.exports = function (app, passport) {
 	
@@ -17,5 +18,6 @@ module.exports = function (app, passport) {
     })
   })  
 	
-	localStrategy(passport);	
+	localStrategy(passport)
+	//jwtStrategy(passport)	
 }

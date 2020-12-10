@@ -24,7 +24,10 @@ var config = {
 			SITE_KEY:'',
 			SECRET_KEY:'',
 			BOT_SCORE_THRESHOLD:0.3
-		},					
+		},	
+		jwt:{
+			iss:"localhost"
+		},				
 		log:{
 			isLog:false
 		}		
@@ -51,7 +54,7 @@ var config = {
 			SITE_KEY:'',
 			SECRET_KEY:'',
 			BOT_SCORE_THRESHOLD:0.3
-		},					
+		},						
 		log:{
 			isLog:false
 		}	
