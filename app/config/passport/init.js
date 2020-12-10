@@ -6,8 +6,7 @@ const config 		= require('../config');
 var User             = mongoose.model('User')
 
 module.exports = function (app, passport) {
-	
-	// serialize sessions
+		
   passport.serializeUser(function(user, done) {
     done(null, user.id)
   })
@@ -18,6 +17,6 @@ module.exports = function (app, passport) {
     })
   })  
 	
-	localStrategy(passport)
-	//jwtStrategy(passport)	
+	//localStrategy(passport)
+	jwtStrategy(passport)	
 }

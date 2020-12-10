@@ -6,13 +6,13 @@ const Token			= mongoose.model('Token')
 const config 		= require('../config');
 
 module.exports = async function(passport){	
-	let token = await Token.findOne({iss:config.jwt.iss, isActive:true}).exec()	
+	let token = await Token.findOne({iss:"local", isActive:true}).exec()	
 	if(!token){
 		throw new Error('Token for local login required. Iss: ' + config.jwt.iss); 	
 	}
 		
 	passport.use(new JwtStrategy({
-		jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),
+		jwtFromRequest:ExtractJwt.fromBodyField("accessToken"),
 		issuer:token.iss,
 		secretOrKey:token.secret,
 		algorithms:token.alg,
