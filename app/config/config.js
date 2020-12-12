@@ -17,8 +17,8 @@ var config = {
 		},
 
 		mail: {
-			user: 'TODO@gmail.com',
-			password: 's5cr5t',	
+			user: 'no-reply@stohl-znojmo.cz',
+			password: 'jurman963',	
 		},							
 		Recaptcha:{
 			SITE_KEY:'',

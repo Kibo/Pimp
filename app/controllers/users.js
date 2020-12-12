@@ -77,7 +77,7 @@ exports.signup = function (req, res) {
 exports.create = function (req, res, next) {
   var user = new User(req.body)
   user.provider = 'local'  
-  user.isActive = false
+  user.isActive = true
   user.isNotofication = false  
   user.roles.push("member")
         
@@ -87,19 +87,9 @@ exports.create = function (req, res, next) {
         errors: errorHelper.proper(err.errors),
         user: user        
       })
-    } else {
-		
-	   console.log(user)
-      // manually login the user once successfully signed up
-      req.logIn(user, function(err) {
-        if (err) {
-          console.log(err)
-          return next(err)
-        }
-                                                                       
-        req.flash('info', {'msg':'Success! You are signed-up.'})
-        return res.redirect(USER_HOME ) 
-      })				 	                                                      	               
+    } else {	
+		req.flash('info', {'msg':'Success! You are signed-up.'})
+		return res.redirect("/login")        		  				 	                                                      	             
     }
   })
 }
@@ -155,25 +145,13 @@ exports.resetPassword = function( req, res, next ){
 				req.flash('errors', {'msg':'Failed to reset password.'})					
 				res.redirect('/forget-password');
 				return	
-			}	
-						
-			Mailer.sendMail({
-			to:user.email, 
-			subject:"Reset", 
-			template:"reset.ejs",
-			templateData:{password:user.password}
-			}).then(function( result){			
-				req.flash('info', {'msg':'Temporary password has been sent to e-mail.'})									
-				res.redirect('/login');					
-				return 											
-			}, function(err){
-				console.error( err )					
-				req.flash('errors', {'msg':'Error sending email.'})
-				res.render('users/reset', {      
-      				email: req.body['email']
-    			})			 
-				return
-			})									
+			}
+			
+			sendEmail( user )
+			
+			req.flash('info', {'msg':'Temporary password has been sent to e-mail.'})									
+			res.redirect('/login');					
+			return 																	
 		});																							 	
 	})	
 }
@@ -184,3 +162,17 @@ exports.profile = function(req, res, next){
     })	
 	return	
 }
+
+async function sendEmail( user ){		
+	Mailer.sendMail({
+			to:user.email, 
+			subject:"Reset", 
+			template:"reset.ejs",
+			templateData:{password:user.password, domain:config.server.hostname}
+			})					
+}
+
+
+
+
+
