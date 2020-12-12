@@ -2,14 +2,10 @@ const config 			= require('./config');
 const logger           = require('morgan');
 const path             = require('path');
 const responseTime     = require('response-time');
-const methodOverride   = require('method-override');
 const compression      = require('compression');
 const favicon          = require('serve-favicon');
 const bodyParser       = require('body-parser');
-//const cookieParser     = require('cookie-parser');
-//const session          = require('express-session');
 const cookieSession 	= require('cookie-session');
-//const MongoStore       = require('connect-mongo')(session);
 const errorHandler     = require('errorhandler');
 const _                = require('underscore');
 const i18n				= require("i18n");
@@ -18,6 +14,7 @@ const env				= process.env.NODE_ENV || 'development';
 const pkg				= require('../../package.json');
 const flash				= require('express-flash');
 const routes			= require('../routes');
+const passportOverwrite	= require(config.root + '/app/config/passport/overwrite');
 
 module.exports = function (app, express, passport, mongoose) {	
   // settings
@@ -42,7 +39,6 @@ module.exports = function (app, express, passport, mongoose) {
          
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(methodOverride());   
   app.use(cookieSession({
   	name: pkg.name,
   	secret:"TODO-123",  	
@@ -63,7 +59,8 @@ module.exports = function (app, express, passport, mongoose) {
     
   // use passport session
   app.use(passport.initialize());
-  //app.use(passport.session({ maxAge: new Date(Date.now() + 60) }));
+  // It overwrite the passport method 
+  app.request.isAuthenticated = passportOverwrite.isAuthenticated
   
   app.use(flash());
   

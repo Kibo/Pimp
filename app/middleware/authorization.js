@@ -1,20 +1,31 @@
 var mongoose = require('mongoose');
 var Log = mongoose.model('Log');
+var Token = mongoose.model('Log');
 var config = require('../config/config');
+const jwt = require('jsonwebtoken');
 
 /*
  *  Generic require login routing middleware
  */
 exports.requiresLogin = function (req, res, next) {
-  if (req.isAuthenticated()){
-  	return next()
-  }
-  
-  if (req.method == 'GET'){ 
-  	req.session.returnTo = req.originalUrl
-  }
-  
-  res.redirect('/login')
+		
+	req.isAuthenticated().then(function(result) {
+		if( result ){
+			return next()	
+		}
+		
+		if (req.method == 'GET'){ 
+			req.session.returnTo = req.originalUrl
+		}
+	
+		res.redirect('/login')
+		return 
+				
+	}, function(err) {
+		res.status(500); 
+  		res.render('500');
+  		return;	
+	});			
 }
 
 /*

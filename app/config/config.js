@@ -27,6 +27,9 @@ var config = {
 		},					
 		log:{
 			isLog:false
+		},
+		pages:{
+			home:"/users/profile"
 		}		
 	},	
 	

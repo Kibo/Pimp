@@ -5,6 +5,14 @@ const config = require('../config/config');
 
 const API_LOGIN_URL="/api/v1/login";
 
+
+/**
+ * It obtains a token and stores it in a cookie.
+ * 
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Object} next
+ */
 exports.login = function (req, res, next) {
 						    	    
     let data = JSON.stringify({
@@ -37,10 +45,8 @@ exports.login = function (req, res, next) {
             	console.error(error)
             });
             
-            res.on('end', function() {
-            	
-            	req.body['accessToken'] = JSON.parse(result).accessToken
-            	
+            res.on('end', function() {            	            
+            	req.session['jwt'] = JSON.parse(result).accessToken            	        
   				next()
   				return
 			})

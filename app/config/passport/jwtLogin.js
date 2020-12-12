@@ -12,7 +12,7 @@ module.exports = async function(passport){
 	}
 		
 	passport.use(new JwtStrategy({
-		jwtFromRequest:ExtractJwt.fromBodyField("accessToken"),
+		jwtFromRequest:cookieExtractor,
 		issuer:token.iss,
 		secretOrKey:token.secret,
 		algorithms:token.alg,
@@ -29,7 +29,7 @@ module.exports = async function(passport){
 	        }
 	        
 	        if (!user.isActive) {
-          		return done(null, false, {message: 'Sorry, your account is not active.'})
+          		return done(null, false, {message: 'Account is not active.'})
         	}
 	        
 	        return done(null, user);	        	        	       
@@ -37,5 +37,10 @@ module.exports = async function(passport){
 	}));
 }
 	
-  
-  
+var cookieExtractor = function(req) {	
+	let token = null;
+	if (req && req.session){
+		token = req.session['jwt'];
+	}
+	return token;
+};

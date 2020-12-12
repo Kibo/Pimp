@@ -5,37 +5,42 @@ var config = require('../config/config');
 var errorHelper = require(config.root + '/app/helper/errors');
 var Mailer   = require(config.root + '/app/helper/mailer');
 
-var login = function (req, res) {	
-  var redirectTo = req.session.returnTo ? req.session.returnTo : '/users/profile'
+exports.session = function (req, res) {		
+  var redirectTo = req.session.returnTo ? req.session.returnTo : (config.pages.home || '/')
   delete req.session.returnTo
   req.flash('success', { msg: 'Success! You are logged in.' });    
   res.redirect(redirectTo)
 }
 
 /**
- * Session
- */
-exports.session = login
-
-/**
  * Show login form
  */
-exports.login = function (req, res) {		
-  if(req.isAuthenticated()){
-    res.redirect('/user/profile')
-  }else{  	  	  	 
-    res.render('users/login', {      
-      errors: req.flash('error'),
-      email:req.flash('email')      
-    })
-  }
+exports.login = function (req, res) {
+	req.isAuthenticated().then(
+		function(result){
+			if(result){
+				res.redirect(config.pages.home || '/')  
+				return
+			}
+			
+			res.render('users/login', {      
+				errors: req.flash('error'),
+				email:req.flash('email')      
+			})
+			
+		}, 
+		function(err){
+			res.status(500); 
+  			res.render('500');
+  			return;	
+		})	
 }
 
 /**
  * Logout
  */
 exports.logout = function (req, res) {
-  req.logout()
+  req.session['jwt'] = null
   req.flash('success', { msg: 'Success! You are logout' });
   res.redirect('/')
 }
@@ -44,13 +49,23 @@ exports.logout = function (req, res) {
  * Show sign up form
  */
 exports.signup = function (req, res) {
-  if(req.isAuthenticated()){
-    res.redirect('/')
-  } else {
-    res.render('users/signup', {      
-      user: new User()
-    })
-  }
+	req.isAuthenticated().then(
+		function(result){
+			if(result){
+				res.redirect(config.pages.home || '/')
+				return
+			}
+			
+			res.render('users/signup', {      
+				user: new User()
+			})
+			return
+		}, 
+		function(err){
+			res.status(500); 
+  			res.render('500');
+  			return;	
+		})	
 }
 
 /**
@@ -80,20 +95,30 @@ exports.create = function (req, res, next) {
         }
                                                                        
         req.flash('info', {'msg':'Success! You are signed-up.'})
-        return res.redirect('/users/profile') 
+        return res.redirect(config.pages.home || '/') 
       })				 	                                                      	               
     }
   })
 }
 
 exports.forgetPasswordForm = function( req, res, next ){
-	if(req.isAuthenticated()){
-    	res.redirect('/')
-  	} else {
-    	res.render('users/reset-password', {      
-      	email: ''
-    })
-  }
+	req.isAuthenticated().then(
+		function(result){
+			if(result){
+				res.redirect(config.pages.home || '/')
+				return
+			}
+			
+			res.render('users/reset-password', {      
+      			email: ''
+    		})
+			return
+		}, 
+		function(err){
+			res.status(500); 
+  			res.render('500');
+  			return;	
+		})	
 }
 
 exports.resetPassword = function( req, res, next ){
@@ -150,7 +175,7 @@ exports.resetPassword = function( req, res, next ){
 	})	
 }
 
-exports.profile = async function(req, res, next){
+exports.profile = function(req, res, next){	
 	res.render('users/profile', {      
     	user: req.user   
     })	
