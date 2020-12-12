@@ -5,8 +5,10 @@ var config = require('../config/config');
 var errorHelper = require(config.root + '/app/helper/errors');
 var Mailer   = require(config.root + '/app/helper/mailer');
 
+const USER_HOME ='/users/profile'
+
 exports.session = function (req, res) {		
-  var redirectTo = req.session.returnTo ? req.session.returnTo : (config.pages.home || '/')
+  var redirectTo = req.session.returnTo ? req.session.returnTo : USER_HOME
   delete req.session.returnTo
   req.flash('success', { msg: 'Success! You are logged in.' });    
   res.redirect(redirectTo)
@@ -19,7 +21,7 @@ exports.login = function (req, res) {
 	req.isAuthenticated().then(
 		function(result){
 			if(result){
-				res.redirect(config.pages.home || '/')  
+				res.redirect(USER_HOME )  
 				return
 			}
 			
@@ -41,6 +43,7 @@ exports.login = function (req, res) {
  */
 exports.logout = function (req, res) {
   req.session['jwt'] = null
+  req.session['returnTo'] = null
   req.flash('success', { msg: 'Success! You are logout' });
   res.redirect('/')
 }
@@ -52,7 +55,7 @@ exports.signup = function (req, res) {
 	req.isAuthenticated().then(
 		function(result){
 			if(result){
-				res.redirect(config.pages.home || '/')
+				res.redirect(USER_HOME )
 				return
 			}
 			
@@ -95,7 +98,7 @@ exports.create = function (req, res, next) {
         }
                                                                        
         req.flash('info', {'msg':'Success! You are signed-up.'})
-        return res.redirect(config.pages.home || '/') 
+        return res.redirect(USER_HOME ) 
       })				 	                                                      	               
     }
   })
@@ -105,7 +108,7 @@ exports.forgetPasswordForm = function( req, res, next ){
 	req.isAuthenticated().then(
 		function(result){
 			if(result){
-				res.redirect(config.pages.home || '/')
+				res.redirect(USER_HOME )
 				return
 			}
 			

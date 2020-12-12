@@ -18,7 +18,7 @@ exports.login = function (req, res, next) {
     let data = JSON.stringify({
     	email:req.body['email'],
     	password:req.body['password'],
-    	iss:"local",
+    	iss:config.jwt.local.iss,
     })
                                				
     var options = {
@@ -41,12 +41,14 @@ exports.login = function (req, res, next) {
             	result += data;          	          					         
             });
             
-            res.on('error', function(error) {            	
+            res.on('error', function(error) {              	          
             	console.error(error)
             });
             
-            res.on('end', function() {            	            
-            	req.session['jwt'] = JSON.parse(result).accessToken            	        
+            res.on('end', function() {         
+            	if( res.statusCode === 200 ){
+            		req.session['jwt'] = JSON.parse(result).accessToken	
+            	}            	            	   	                      
   				next()
   				return
 			})
