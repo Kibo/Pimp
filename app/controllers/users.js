@@ -42,8 +42,8 @@ exports.login = function (req, res) {
  * Logout
  */
 exports.logout = function (req, res) {
-  req.session['jwt'] = null
-  req.session['returnTo'] = null
+  delete req.session['jwt']
+  delete req.session['returnTo']
   req.flash('success', { msg: 'Success! You are logout' });
   res.redirect('/')
 }
