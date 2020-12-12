@@ -29,7 +29,7 @@ module.exports = async function(passport){
 	        }
 	        
 	        if (!user.isActive) {
-          		return done(null, user, {message: 'Sorry, your account is not active.'})
+          		return done(null, false, {message: 'Sorry, your account is not active.'})
         	}
 	        
 	        return done(null, user);	        	        	       

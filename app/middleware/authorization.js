@@ -6,33 +6,18 @@ var config = require('../config/config');
  *  Generic require login routing middleware
  */
 exports.requiresLogin = function (req, res, next) {
-  if (req.isAuthenticated()) return next()
-  if (req.method == 'GET') req.session.returnTo = req.originalUrl
+  if (req.isAuthenticated()){
+  	return next()
+  }
+  
+  if (req.method == 'GET'){ 
+  	req.session.returnTo = req.originalUrl
+  }
+  
   res.redirect('/login')
 }
 
-exports.hasLogin = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    res.redirect('/user/profile')
-  } else {
-    next()
-  }
-}
-
 /*
- *  User authorization routing middleware
- */
-exports.user = {
-  hasAuthorization: function (req, res, next) {
-    if (req.profile.id != req.user.id) {
-      req.flash('info', 'You are not authorized')
-      return res.redirect('/users/' + req.profile.id)
-    }
-    next()
-  }
-}
-
-/**
  * Check login user role
  * 
  * @param {Array} roles
@@ -54,7 +39,7 @@ exports.needsRole = function(roles) {
     if (authorized){    	
       next();
     }else{    	     	    	 		    	    					    	
-    	req.flash('error', 'Na tuto akci nemáte dostatečná oprávnění.')    	  		    	  
+    	req.flash('error', 'Insufficient permissions to perform this action.')    	  		    	  
     	res.redirect('/401');
     	return      
     }

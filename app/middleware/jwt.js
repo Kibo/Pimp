@@ -38,7 +38,9 @@ exports.login = function (req, res, next) {
             });
             
             res.on('end', function() {
+            	
             	req.body['accessToken'] = JSON.parse(result).accessToken
+            	
   				next()
   				return
 			})

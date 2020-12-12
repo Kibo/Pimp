@@ -7,8 +7,9 @@ const compression      = require('compression');
 const favicon          = require('serve-favicon');
 const bodyParser       = require('body-parser');
 //const cookieParser     = require('cookie-parser');
-const session          = require('express-session');
-const MongoStore       = require('connect-mongo')(session);
+//const session          = require('express-session');
+const cookieSession 	= require('cookie-session');
+//const MongoStore       = require('connect-mongo')(session);
 const errorHandler     = require('errorhandler');
 const _                = require('underscore');
 const i18n				= require("i18n");
@@ -41,15 +42,16 @@ module.exports = function (app, express, passport, mongoose) {
          
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(methodOverride()); 
-      
-  //app.use(cookieParser());
-  app.use(session({  	
-    secret: pkg.name, 
-    resave: false,
-    saveUninitialized: false,   
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-  }));
+  app.use(methodOverride());   
+  app.use(cookieSession({
+  	name: pkg.name,
+  	secret:"TODO-123",  	
+  	secure:false, // true if HTTPS
+  	httpOnly:true,
+  	overwrite:true,
+  	signed:true,
+  	returnTo:[]
+  }))
     
   // Locales
 	i18n.configure({
