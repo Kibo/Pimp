@@ -43,8 +43,12 @@ exports.needsRole = function(roles) {
  		}
  	}	
  	
- 	if(config.log.isLog){ 	
- 		new Log({"status": authorized?200:401, "user":req.user.email, "message":`${req.method} ${req.path}`}).save()
+ 	if(config.log.isLog){
+ 		try{
+ 			new Log({"status": authorized?200:401, "iss":config.jwt.local.iss, "user":req.user.email, "message":`${req.method} ${req.originalUrl}`}).save()	
+ 		}catch(e){
+			conslole.error(e) 			
+ 		} 		 		
  	}
   	  	  	  	
     if (authorized){    	

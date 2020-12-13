@@ -5,10 +5,11 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th>Datum</th>
+			<th>Date</th>
 			<th>Status</th>
-			<th>Uživatel</th>
-			<th>Zpráva</th>
+			<th>User</th>
+			<th>Iss</th>
+			<th>Message</th>
 			<th>&nbsp;</th>
 		</tr>
 	</thead>
@@ -20,16 +21,17 @@
 			<%=logs[i].status%>
 			<%}%> </td>
 			<td><%=logs[i].user%></td>
+			<td><%=logs[i].iss%></td>
 			<td><%-logs[i].message%></td>
 			<td class="text-right">
 			<div class="btn-group" role="group">
-				<a href="/manager/logs/delete/<%=logs[i].id%>" class="btn btn-danger btn-sm" onclick="return confirm('Smazat řádek ?')">smazat</a>
+				<a href="/manager/logs/delete/<%=logs[i].id%>" class="btn btn-danger btn-sm" onclick="return confirm('Delete row?')">delete</a>
 			</div></td>
 		</tr>
 		<% } %>
 		<%if(logs.length === 0){%>
 		<tr>
-			<td colspan="5" class="text-center">Logování je <%=config.log.isLog?'zapnuto':'vypnuto'%>.</td>
+			<td colspan="5" class="text-center">Logging is <%=config.log.isLog?'on':'off'%>.</td>
 		</tr>
 		<%}%>
 	</tbody>

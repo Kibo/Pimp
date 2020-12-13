@@ -26,7 +26,7 @@ var config = {
 			BOT_SCORE_THRESHOLD:0.3
 		},					
 		log:{
-			isLog:false
+			isLog:true
 		},
 		jwt:{
 			local:{

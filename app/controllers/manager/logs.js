@@ -3,12 +3,12 @@ var utils = require('keystone-utils');
 var Log = mongoose.model('Log');
 var config = require('../../config/config');
 var errorHelper = require(config.root + '/app/helper/errors');
-var Mailer   = require(config.root + '/app/helper/mailer');
+const moment   = require('moment');
 
 exports.all = async function (req, res, next) {			
 	return res.render('manager/logs/all', {
 		"logs": await Log.find({}).sort({ 'created': 'desc'}),
-		"config":config
+		"moment":moment
 	})																	
 };
 

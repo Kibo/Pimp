@@ -8,6 +8,7 @@ var LogSchema = new Schema({
 	status:Number,
 	user:String,
 	message:String,
+	iss:String,
 	created: { type: Date, default: Date.now }    
 })
 
