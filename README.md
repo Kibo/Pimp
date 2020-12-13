@@ -37,8 +37,8 @@ It contains users management, tokens management, logging.
 - 1234
 
 Note:
-Delete [init path](https://github.com/Kibo/Pimp/blob/master/app/routes/index.js#L23) after first login. It creates admin.
-Don't delete local token. You couldn't sign in.
+- Delete [init path](https://github.com/Kibo/Pimp/blob/master/app/routes/index.js#L23) after first login. It creates admin.
+- Don't delete local token. You couldn't sign in.
 
 ### Tests
 ```
@@ -118,8 +118,6 @@ RESPONSE:{
 ```
 
 ### TODO
-- Local login
-- Logger
 - Google ReCaptcha v3 to login, reset, signup forms
 - Create a temporary password if password reset.
 - I18n
