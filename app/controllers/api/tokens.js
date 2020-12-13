@@ -9,7 +9,9 @@ const jwt = require('jsonwebtoken');
 exports.login = function (req, res, next) {
 	const { email, password, iss } = req.body;
 		
-	if( !email || !password || !iss){				
+	if( !email || !password || !iss){
+		logIt(401, iss, email, req.method, req.originalUrl, "Missing credentials")
+								
 		res.status(401)
 		res.send('Missing credentials');
 		return	
@@ -22,7 +24,9 @@ exports.login = function (req, res, next) {
 			return
 		}
 		
-		if(!user || !user.authenticate(password) ){			
+		if(!user || !user.authenticate(password) ){
+			logIt(401, iss, email, req.method, req.originalUrl, "Incorrect credentials")
+						
 			res.status(401)
 			res.send('Incorrect credentials');
 			return
@@ -38,10 +42,14 @@ exports.login = function (req, res, next) {
 		}
 		
 		if(!token){
+			logIt(401, iss, email, req.method, req.originalUrl, "Missing token")
+			
 			res.status(401)
 			res.send('Incorrect credentials');
 			return	
 		}
+					
+		logIt(200, iss, email, req.method, req.originalUrl, "Success login")
 																																	
 		res.status(200)
 		res.json({
@@ -54,7 +62,9 @@ exports.login = function (req, res, next) {
 exports.refresh = async function (req, res, next) {		
 	const authHeader = req.headers.authorization;
 		
-	if( !authHeader){				
+	if( !authHeader){		
+		logIt(401, iss, email, req.method, req.originalUrl, "Missing autHeader")
+						
 		res.status(401)
 		res.send('Missing credentials.');
 		return	
@@ -73,13 +83,17 @@ exports.refresh = async function (req, res, next) {
 	}
 	
 	if(!token){
+		logIt(401, decoded.iss, decoded.user.email, req.method, req.originalUrl, "Missing token")
+		
 		res.status(401)
 		res.send('Incorrect credentials');
 		return	
 	}
 		
 	jwt.verify(accessToken, token.secret, async function (err, payload){
-		if (err) {													
+		if (err) {
+			logIt(403, decoded.iss, decoded.user.email, req.method, req.originalUrl, "Verify token: " + err.message)
+																
 			res.status(403);
 			res.send( err.message );            	
 		    return
@@ -95,10 +109,14 @@ exports.refresh = async function (req, res, next) {
 		}
 		
 		if(!user){
+			logIt(401, decoded.iss, decoded.user.email, req.method, req.originalUrl, "Missing user")
+			
 			res.status(401)
 			res.send('Incorrect credentials');
 			return	
 		}
+		
+		logIt(200, decoded.iss, decoded.user.email, req.method, req.originalUrl, "Refresh success")
 																							
 		res.status(200)
 		res.json({
@@ -151,4 +169,14 @@ function getOptionsForJWT( token ){
 	return {
 			algorithm: token.alg,												
 		}				
+}
+
+function logIt(status, iss, user, method, url, message){
+	if(config.log.isLog){
+		try{
+			new Log({"status": status, "iss":iss, "user":user, "method":method, "url":url, "message":message}).save()
+		}catch(e){
+			console.error(e)
+		}
+	}
 }

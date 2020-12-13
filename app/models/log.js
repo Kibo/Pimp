@@ -6,9 +6,11 @@ var Schema = mongoose.Schema;
  */
 var LogSchema = new Schema({ 	
 	status:Number,
-	user:String,
-	message:String,
+	user:String,	
 	iss:String,
+	method:String,
+	url:String,
+	message:String,
 	created: { type: Date, default: Date.now }    
 })
 

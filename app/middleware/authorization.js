@@ -45,7 +45,7 @@ exports.needsRole = function(roles) {
  	
  	if(config.log.isLog){
  		try{
- 			new Log({"status": authorized?200:401, "iss":config.jwt.local.iss, "user":req.user.email, "message":`${req.method} ${req.originalUrl}`}).save()	
+ 			new Log({"status": authorized?200:401, "iss":config.jwt.local.iss, "user":req.user.email, "method":req.method, "url":req.originalUrl, "message":""}).save()	
  		}catch(e){
 			conslole.error(e) 			
  		} 		 		
