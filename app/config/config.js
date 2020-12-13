@@ -59,7 +59,12 @@ var config = {
 		},						
 		log:{
 			isLog:false
-		}	
+		},
+		jwt:{
+			local:{
+				iss:"local"
+			}
+		}		
 	}
 }
 

@@ -62,12 +62,11 @@ exports.refresh = async function (req, res, next) {
 	
 	const accessToken = authHeader.split(' ')[1];
 	var decoded = jwt.decode( accessToken );
-	
-	
+		
 	let token;
 	try{
 		token = await Token.findOne({ iss:decoded.iss, isActive:true }).exec()	
-	}catch(e){
+	}catch(e){							
 		res.status(500);
 		res.send('Oops. An error has occured.');
 		return	
@@ -80,7 +79,7 @@ exports.refresh = async function (req, res, next) {
 	}
 		
 	jwt.verify(accessToken, token.secret, async function (err, payload){
-		if (err) {			
+		if (err) {													
 			res.status(403);
 			res.send( err.message );            	
 		    return

@@ -148,8 +148,8 @@ describe('/api/v1/refresh', () => {
 				 'Authorization': "Bearer " + BROKEN_TOKEN})
 			.send()
 		  	
-			expect(res.statusCode).toEqual(500)			
-			expect(res.text).toBe("Oops. An error has occured.");												
+			expect(res.statusCode).toEqual(403)			
+			expect(res.text).toBe("invalid signature");													
 	})
 	
 	it('User change status', async () => {
