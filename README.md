@@ -37,7 +37,7 @@ It contains users management, tokens management, logging.
 - 1234
 
 Note:
-Delete [init path](#) after first login. It creates admin.
+Delete [init path](https://github.com/Kibo/Pimp/blob/master/app/routes/index.js#L23) after first login. It creates admin.
 Don't delete local token. You couldn't sign in.
 
 ### Tests
