@@ -61,6 +61,7 @@ module.exports = function (app, express, passport, mongoose) {
   app.use(passport.initialize());
   // It overwrite the passport method 
   app.request.isAuthenticated = passportOverwrite.isAuthenticated
+  app.request.logout = passportOverwrite.logout
   
   app.use(flash());
   

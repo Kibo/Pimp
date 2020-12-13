@@ -13,7 +13,7 @@ const API_LOGIN_URL="/api/v1/login";
  * @param {Object} res
  * @param {Object} next
  */
-exports.login = function (req, res, next) {
+exports.login = function (req, respon, next) {
 						    	    
     let data = JSON.stringify({
     	email:req.body['email'],
@@ -47,9 +47,14 @@ exports.login = function (req, res, next) {
             
             res.on('end', function() {         
             	if( res.statusCode === 200 ){
-            		req.session['jwt'] = JSON.parse(result).accessToken	
+            		req.session['jwt'] = JSON.parse(result).accessToken
+            		next()
+  					return	
             	}            	            	   	                      
-  				next()
+  				
+  				
+  				req.flash('errors', { msg: 'Incorrect credentials' });
+  				respon.redirect('/login')  				
   				return
 			})
 	 })

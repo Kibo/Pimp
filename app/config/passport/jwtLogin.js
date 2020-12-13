@@ -6,9 +6,25 @@ const Token			= mongoose.model('Token')
 const config 		= require('../config');
 
 module.exports = async function(passport){	
-	let token = await Token.findOne({iss:config.jwt.local.iss, isActive:true}).exec()	
+	let token;
+	try{
+		token = await Token.findOne({iss:config.jwt.local.iss, isActive:true}).exec()	
+	}catch(e){
+		console.error(e)
+		throw new Error('Token for local login required. Iss: ' + config.jwt.local.iss);
+	}	
+		
 	if(!token){
-		throw new Error('Token for local login required. Iss: ' + config.jwt.iss); 	
+		try{
+		 token = await new Token({
+				iss:config.jwt.local.iss,
+				isActive:true,
+				secret:"secr8t987463214" 						
+				}).save()
+		  }catch(e){
+		  	console.error(e)
+		  	throw new Error('Token for local login required. Iss: ' + config.jwt.local.iss);
+		  }		 	
 	}
 		
 	passport.use(new JwtStrategy({
@@ -20,7 +36,7 @@ module.exports = async function(passport){
 	}, function(req, jwt_payload, done) {
 		
 		User.findOne({email: jwt_payload.user.email }, function(err, user) {
-	        if (err) {
+	        if (err) {	        	
 	            return done(err, false);
 	        }
 	        

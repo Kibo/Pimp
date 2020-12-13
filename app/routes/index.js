@@ -13,10 +13,15 @@ const Auth = require(config.root + '/app/middleware/authorization');
 const Recaptcha = require(config.root + '/app/middleware/recaptcha');
 const JWT = require(config.root + '/app/middleware/jwt');
 
+const initController = require(config.root + '/app/controllers/init');
 const userController = require(config.root + '/app/controllers/users');
 
 // Frontend routesuploads
 Route	
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// DELETE IT after first login
+	.get('/init', initController.createAdmin)
+
 	// Web Index page
 	.get('/', function(req, res){
 		return res.render('pages/index')

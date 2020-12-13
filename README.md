@@ -5,7 +5,7 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
 It contains users management, tokens management, logging. 
 
 ## Version
-- 0.8.0 ( testing )
+- 0.9.0 ( testing )
 
 ### Workers
 - Node (currently: v12.18.2)
@@ -30,10 +30,15 @@ It contains users management, tokens management, logging.
 	$ npm install 
 	$ npm start
 ```
-### Local login
+### First login
+- localhost:3000/init  
 - localhost:3000/login
 - admin@admin.com
 - 1234
+
+Note:
+Delete [init path](#) after first login. It creates admin.
+Don't delete local token. You couldn't sign in.
 
 ### Tests
 ```

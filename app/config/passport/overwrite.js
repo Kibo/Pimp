@@ -69,3 +69,20 @@ exports.isAuthenticated = function(){
 		})				
 	})					
 }
+
+
+/**
+ * Logout a user
+ *  
+ * @overwrite request.logout()
+ * @see ( https://github.com/jaredhanson/passport/blob/master/lib/http/request.js )
+ * 
+ * {this} - context of ExpressJs Request object
+ * 
+ */
+exports.logout = function logout(){
+	let req = this
+	
+	delete req.session['jwt']
+	delete req.session['returnTo']
+}
