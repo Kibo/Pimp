@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-xs-12 col-md-4">
 		
-		<div class="card">
+		<div class="card mb-3">
 		  <img src="<%=user.gravatar(400)%>" class="card-img-top" alt="Gravatar">
 		  <div class="card-header">
 		    <h5 class="card-title m-0"><%=user.firstname%> <%=user.lastname%></h5>
@@ -17,7 +17,7 @@
 		    </ul>	
 		    
 		    <%if(user.hasRole('admin')){%>
-		    	<a href="/manager/users/all" class="btn btn-secondary btn-block">Open manager</a>
+		    	<a href="/manager/users/all" class="btn btn-success btn-block">Open manager</a>
 		    <%}%>	    
 		  </div>
 		</div>

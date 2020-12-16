@@ -29,6 +29,7 @@ exports.save = async function( req, res, next ){
 	}
 			  		
 	token.iss = req.body['iss']
+	token.exp = req.body['exp']
     token.secret = req.body['secret']                 
     token.isActive = req.body['isActive'] ? true : false       
     

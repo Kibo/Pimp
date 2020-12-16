@@ -6,9 +6,8 @@ const config = require('../config/config');
 const RECAPTCHA_HOST_URL="www.google.com";
 const RECAPTCHA_VERIFY_URL="/recaptcha/api/siteverify";
 
-exports.verify = function (req, res, next) {
-	var response = null;
-	
+exports.verify = function (req, respon, next) {
+		
 	if( !config.Recaptcha.SITE_KEY){		
 		next()
 		return	
@@ -36,12 +35,12 @@ exports.verify = function (req, res, next) {
 	    }
     };
                
-    var postReq = https.request( options , function (res) {    		
+    var postReq = https.request( options , function (res) { 
+    		let result = '';   		
     		res.setEncoding('utf8');
     	                                  
-            res.on('data', function ( gData ) {            	 
-            	delete req.body['recaptcha-response']
-            	req.body['captcha'] = JSON.parse(gData)           	          					         
+            res.on('data', function ( data ) { 
+            	result += data;            	             	           	          					        
             });
             
             res.on('error', function(error) {
@@ -49,6 +48,10 @@ exports.verify = function (req, res, next) {
             });
             
             res.on('end', function() {
+            	if( res.statusCode === 200 ){
+            		delete req.body['recaptcha-response']
+            		req.body['captcha'] = JSON.parse(result)            		
+            	}  				            	            	           
   				next()
   				return
 			})

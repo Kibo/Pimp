@@ -11,7 +11,7 @@ const apiTokensRoutes = require('./api/tokens');
 
 const Auth = require(config.root + '/app/middleware/authorization');
 const Recaptcha = require(config.root + '/app/middleware/recaptcha');
-const JWT = require(config.root + '/app/middleware/jwt');
+const API = require(config.root + '/app/middleware/jwt');
 
 const initController = require(config.root + '/app/controllers/init');
 const userController = require(config.root + '/app/controllers/users');
@@ -34,11 +34,14 @@ Route
 	 .get('/signup', userController.signup)     
 	 
 	.post('/users/create', userController.create)	
-	.post('/users/session', JWT.login,
+	.post('/users/session', API.login,
 		passport.authenticate('jwt', {session: false, failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
 			
-	.get('/users/profile', Auth.requiresLogin, userController.profile)	
+	.get('/users/profile', 			
+			Auth.requiresLogin,
+			API.refresh, 
+			userController.profile)	
 	
 	// API
 	.use('/api/v1/', cors(), apiTokensRoutes)

@@ -59,9 +59,7 @@ exports.isAuthenticated = function(){
 				resolve(false);		
 				return	
 			}
-			
-			// TODO check close to expire and refresh
-							
+																				
 			req.user = user;
 			
 			resolve(true);																								

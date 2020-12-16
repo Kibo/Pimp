@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
  */
 exports.requiresLogin = function (req, res, next) {
 		
+	/* @see /config/passport/overwrite.js */	
 	req.isAuthenticated().then(function(result) {
 		if( result ){
 			return next()	

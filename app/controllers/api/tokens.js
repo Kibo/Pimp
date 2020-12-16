@@ -50,7 +50,7 @@ exports.login = function (req, res, next) {
 		}
 					
 		logIt(200, iss, email, req.method, req.originalUrl, "Success login")
-																																	
+																																				
 		res.status(200)
 		res.json({
             accessToken:getToken(token, user)
@@ -117,7 +117,7 @@ exports.refresh = async function (req, res, next) {
 		}
 		
 		logIt(200, decoded.iss, decoded.user.email, req.method, req.originalUrl, "Refresh success")
-																							
+																										
 		res.status(200)
 		res.json({
 	        accessToken:getToken(token, user)
@@ -134,7 +134,7 @@ exports.refresh = async function (req, res, next) {
  * 
  * @return {Object} jwt
  */
-function getToken( token, user){
+function getToken( token, user){	
 	return jwt.sign(
 			getPayload(token, user), 
 			token.secret, 
