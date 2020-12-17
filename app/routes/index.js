@@ -30,8 +30,9 @@ Route
 	.get('/login', userController.login)	
 	.get('/logout', userController.logout)
 	.get('/forget-password', userController.forgetPasswordForm)
-	.post('/reset-password', userController.resetPassword)	 
-	 .get('/signup', userController.signup)     
+	.post('/send-reset-token', userController.sendResetToken)
+	.get('/reset/:token', userController.resetPassword)
+	.post('/reset/:token', userController.savePassword)
 	 
 	.post('/users/create', userController.create)	
 	.post('/users/session', API.login,

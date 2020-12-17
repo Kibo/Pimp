@@ -1,8 +1,10 @@
 <h3><%=domain%></h3>
 
-<p>This email was sent based on your request to send a forgotten password to the website <i><%=domain%></i>.</p>
-<p>A temporary login password has been generated for you:</p>
+<p>This email was sent based on your request to reset a password on the website <i><%=domain%></i>.</p>
+<p>Please click on the following link, or paste this into your browser to complete the process.</p>
 
 <ul>
-	<li><%=password%></li>
+	<li>http://<%=domain%>/reset/<%=resetPasswordToken%></li>
 </ul>
+
+<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>

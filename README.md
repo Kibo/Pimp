@@ -119,6 +119,5 @@ RESPONSE:{
 
 ### TODO
 - Google ReCaptcha v3 to login, reset, signup forms
-- Create a temporary password if password reset.
 - I18n
 

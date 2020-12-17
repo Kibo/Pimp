@@ -113,7 +113,7 @@ exports.forgetPasswordForm = function( req, res, next ){
 		})	
 }
 
-exports.resetPassword = function( req, res, next ){
+exports.sendResetToken = function( req, res, next ){
 	
 	if(!req.body['email']){
 		res.redirect('/forget-password');	
@@ -123,36 +123,79 @@ exports.resetPassword = function( req, res, next ){
 		
 		if (err) {
 			console.error( err )
-  			req.flash('errors', {'msg':'Failed to authenticate user.'})					
+  			req.flash('errors', {'msg':'Nepodařilo se ověřit uživatele.'})					
 			res.redirect('/forget-password');
 			return
 		}
 		
 		if(!user){
-			req.flash('errors', {'msg':'The user with the given email is not registered.'})
+			req.flash('errors', {'msg':'Uživatelel s uvedeným emailem není registrován.'})
 			res.render('users/reset-password', {      
       			email: req.body['email']
     		})										
 			return
 		}
-												
-		user.password = utils.randomString([8, 8]);
+														
+		user.resetPasswordToken = utils.randomString([32, 32]);
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 		
 		user.save(function(err){
 			if(err){
 				console.error( err )
-				req.flash('errors', {'msg':'Failed to reset password.'})					
+				req.flash('errors', {'msg':'Heslo se nepodařilo resetovat.'})					
 				res.redirect('/forget-password');
 				return	
-			}
-			
+			}	
+						
 			sendEmail( user )
 			
 			req.flash('info', {'msg':'Temporary password has been sent to e-mail.'})									
 			res.redirect('/login');					
-			return 																	
+			return 									
 		});																							 	
 	})	
+}
+
+exports.resetPassword = function( req, res, next ){	
+	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+		req.flash('errors',{'msg':'Password reset token is invalid or has expired.'} );
+		res.redirect('/forget-password');
+		return	
+    }
+    res.render('users/change-password', {
+      user: req.user
+    });
+  });
+}
+
+exports.savePassword = function( req, res, next ){
+	if(!req.body.password){
+		req.flash('error', {'msg':'Password cannot be blank.'});
+		res.redirect('/forget-password');
+		return	
+	}
+		
+	User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+		req.flash('errors', {'msg':'Password reset token is invalid or has expired.'});
+		res.redirect('/forget-password');
+		return	
+    }
+    	user.password = req.body.password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        
+        user.save(function (err, new_user) {
+			if (err) {       	        	    	    
+				console.log(err)
+				return next(err)
+		    } else {
+		      req.flash('info', {'msg':'Success! Your password has been changed.'})
+			  return res.redirect("/login")
+		    }
+		})               
+  });	
 }
 
 exports.profile = function(req, res, next){	
@@ -167,11 +210,6 @@ async function sendEmail( user ){
 			to:user.email, 
 			subject:"Reset", 
 			template:"reset.ejs",
-			templateData:{password:user.password, domain:config.server.hostname}
+			templateData:{resetPasswordToken:user.resetPasswordToken, domain:config.server.hostname}
 			})					
 }
-
-
-
-
-

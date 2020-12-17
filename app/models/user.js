@@ -14,6 +14,8 @@ var UserSchema = new Schema({
   isActive:Boolean,
   isNotofication:Boolean,
   provider:String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
  
   email: {
     type: String,
