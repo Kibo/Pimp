@@ -12,7 +12,7 @@ var UserSchema = new Schema({
   lastname: String,
   roles:[String],
   isActive:Boolean,
-  isNotofication:Boolean,
+  isNotification:Boolean,
   provider:String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,

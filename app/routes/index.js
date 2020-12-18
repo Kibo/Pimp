@@ -8,6 +8,7 @@ const managerUsersRoutes = require('./manager/users');
 const managerTokensRoutes = require('./manager/tokens');
 const managerLogsRoutes = require('./manager/logs');
 const apiTokensRoutes = require('./api/tokens');
+const profileRoute = require('./profile');
 
 const Auth = require(config.root + '/app/middleware/authorization');
 const Recaptcha = require(config.root + '/app/middleware/recaptcha');
@@ -38,20 +39,22 @@ Route
 	.post('/users/session', API.login,
 		passport.authenticate('jwt', {session: false, failureRedirect: '/login', failureFlash: true}), 
 		userController.session)
-			
-	.get('/users/profile', 			
-			Auth.requiresLogin,
-			API.refresh, 
-			userController.profile)	
+	
+	.use('/profile', profileRoute)			
 	
 	// API
 	.use('/api/v1/', cors(), apiTokensRoutes)
+	
+	//Manager
+	.get('/manager', function(req, res){
+		res.redirect('/manager/users/all')
+	 })
 		  			  
 	 //Manager		
 	.use('/manager/users', managerUsersRoutes)
 	.use('/manager/tokens', managerTokensRoutes)
 	.use('/manager/logs', managerLogsRoutes)
-		
+			
 	.get('/401', function(req, res){ 
   		res.status(401); 
   		res.render('401');

@@ -1,0 +1,52 @@
+<% layout('layouts/main') -%>
+
+<% include ../includes/messages %>
+<% include ../includes/flash %>
+
+<div class="card mb-3">
+	
+	<div class="card-body">
+		
+		<fieldset class="mb-4">
+			<legend>
+				User profile
+			</legend>
+	
+			<ul class="list-group">
+				<li class="list-group-item">
+					<%=user.firstname%> <%=user.lastname%>
+				</li>
+				<li class="list-group-item">				
+					<a href="mailto:<%=user.email%>?subject=Password"><%=user.email%></a>
+				</li>
+				<li class="list-group-item">				
+					<% for (let i = 0; i < user.roles.length; i++){ %>					
+						<span class="badge badge-warning"><i class="fa fa-tag" aria-hidden="true"></i> <%=user.roles[i]%></span>	
+					<% }%>
+				</li>
+				<li class="list-group-item">				
+					Notification: <a href="/profile/toggle"><%-user.isNotification ? '<i class="fa fa-volume-up" aria-hidden="true"></i>' : '<i class="fa fa-volume-off" aria-hidden="true"></i>'%></a>
+				</li>					
+			</ul>
+		</fieldset>
+	
+		<form method="post" action="/profile/password/save">
+			<fieldset>
+				<legend>
+					Setting a new password
+				</legend>
+		
+				<div class="form-group">
+					<label>New password</label>
+					<input type="text" class="form-control" name="password" value="" placeholder="Password" maxlength="50" autocomplete="off">
+				</div>	
+			</fieldset>
+		
+			<input type="hidden" name="id" value="<%=user.id%>" />
+			<input class="btn btn-success" type="submit" value="Save" >
+		</form>
+	
+	</div>
+</div>
+
+<script>document.querySelector(".link-profile").classList.add("active");</script>

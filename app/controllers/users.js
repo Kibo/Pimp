@@ -5,7 +5,7 @@ var config = require('../config/config');
 var errorHelper = require(config.root + '/app/helper/errors');
 var Mailer   = require(config.root + '/app/helper/mailer');
 
-const USER_HOME ='/users/profile'
+const USER_HOME ='/profile/show'
 
 exports.session = function (req, res) {		
   var redirectTo = req.session.returnTo ? req.session.returnTo : USER_HOME
@@ -196,13 +196,6 @@ exports.savePassword = function( req, res, next ){
 		    }
 		})               
   });	
-}
-
-exports.profile = function(req, res, next){	
-	res.render('users/profile', {      
-    	user: req.user   
-    })	
-	return	
 }
 
 async function sendEmail( user ){		

@@ -34,7 +34,7 @@ exports.save = async function( req, res, next ){
     user.lastname = req.body['lastname']
     user.email = req.body['email']              
     user.isActive = req.body['isActive'] ? true : false       
-    user.isNotofication = req.body['isNotofication'] ? true : false
+    user.isNotification = req.body['isNotification'] ? true : false
     user.roles = req.body['roles'].replace(/\s/g, '').split(",")
        
   	try {
