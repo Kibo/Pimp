@@ -5,7 +5,7 @@ Lightweight authentication server based on [JSON Web Token](https://jwt.io/intro
 It contains users management, tokens management, logging. 
 
 ## Version
-- 0.1.0
+- 1.1.0
 
 ### Workers
 - Node (currently: v12.18.2)
