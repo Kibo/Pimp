@@ -16,10 +16,13 @@
 		<% for(var i = 0, l = users.length; i < l; i++){ %>
 		<tr>							
 			<td><%=users[i].lastname%> <%=users[i].firstname%></td>
-			<td><%=users[i].email%></td>
-			<td><%=users[i].roles.join(", ")%>								
-			<td><a title="change" href="/manager/users/toggle/<%=users[i].id%>"><%-users[i].isActive ? '<span class="badge badge-success">true</span>' : '<span class="badge badge-danger">false</span>' %></a>
-			</td>											
+			<td><a href="mailto:<%=users[i].email%>" target="blank"><%=users[i].email%></a></td>
+			<td>
+				<% for (let n = 0; n < users[i].roles.length; n++){ %>					
+					<span class="badge badge-warning"><i class="fa fa-tag" aria-hidden="true"></i> <%=users[i].roles[n]%></span>	
+				<% }%>	  						
+			</td>								
+			<td><a title="change" href="/manager/users/toggle/<%=users[i].id%>"><%-users[i].isActive ? '<span class="badge badge-success">true</span>' : '<span class="badge badge-danger">false</span>' %></a></td>											
 			<td class="text-right">
 				<div class="btn-group btn-group-sm">					
 					<a href="/manager/users/edit/<%=users[i].id%>" class="btn btn-success">Edit</a>
