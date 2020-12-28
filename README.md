@@ -9,7 +9,7 @@ It contains users management, tokens management, logging.
 <a href="https://www.buymeacoffee.com/Kibo" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ## Version
-- 1.0.2
+- 1.1.0
 
 ### Workers
 - Node (currently: v12.18.2)
@@ -48,6 +48,20 @@ Note:
 ```
 	$ npm test 
 ```
+
+### Docker
+
+[pimp in Docker hub](#)
+
+### Env-variable
+|Env-variable|Description|
+|--- |--- |
+|`HOST_NAME`|The hostname, if not provided the default **localhost** will be used|
+|`DB_USERNAME`|The username for the database connection, if not provided it does not use authentication.|
+|`DB_PASSWORD`|The password for the database user|
+|`DB_HOST`|The host IP address or DNS name without the port! If not provided the default **localhost** will be used|
+|`DB_PORT`|The port of the mongoDB database, if not provided the default **27017** will be used|
+|`DB_NAME`|The name of the database, if not provided the default **pimp** will be used|
 
 ## Endpoints
 ### POST /api/v1/login
